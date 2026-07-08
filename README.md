@@ -32,6 +32,49 @@ app/index.html
 
 No install step is required.
 
+For local HTTP preview:
+
+```text
+cd app
+python3 -m http.server 8080
+```
+
+Then open:
+
+```text
+http://localhost:8080
+```
+
+## Deploy The MVP
+
+The MVP is a static site.
+
+### Vercel
+
+1. Import this GitHub repository in Vercel.
+2. Keep the repository private.
+3. Framework preset: `Other`.
+4. Build command: leave empty.
+5. Output directory: leave empty if deploying the repo root, or set root directory to `app`.
+6. The root `index.html` redirects to `/app/`.
+
+### Netlify
+
+1. Import this GitHub repository in Netlify.
+2. Build command: leave empty.
+3. Publish directory: `.`.
+4. `netlify.toml` redirects `/` to `/app/`.
+
+### Access Control
+
+The current MVP does not include real login. Use platform-level access controls or private preview links for early expert review.
+
+Planned production access model:
+
+- Owner: manage users, topics, skills, and publishing.
+- Expert: edit assigned topic reports and skills.
+- Viewer: read published reports.
+
 ## Design Principle
 
 This project follows CHIF:
