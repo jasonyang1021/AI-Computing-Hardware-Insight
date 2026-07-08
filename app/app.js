@@ -281,6 +281,7 @@ const skillDrafts = {};
 const skillCache = {};
 let insightRefreshVersion = "20260708";
 let skillPanelOpen = false;
+let industryExpanded = true;
 let activeJobTimer = null;
 let activeJob = null;
 const reportTopics = {
@@ -310,6 +311,7 @@ function activeTopic() {
 }
 
 function renderTopics() {
+  topicList.hidden = !industryExpanded;
   topicList.innerHTML = topics
     .map((topic) => `
       <button class="topic-button ${topic.id === activeTopicId ? "active" : ""}" type="button" data-topic="${topic.id}">
@@ -744,6 +746,9 @@ function showView(view) {
   document.body.dataset.view = view;
   navItems.forEach((item) => item.classList.toggle("active", item.dataset.viewTarget === view));
   viewSections.forEach((section) => section.classList.toggle("active", section.dataset.viewSection === view));
+  const industryButton = document.querySelector('[data-view-target="industry"]');
+  industryButton.setAttribute("aria-expanded", String(industryExpanded));
+  topicList.hidden = !industryExpanded;
 }
 
 topicList.addEventListener("click", (event) => {
@@ -757,7 +762,15 @@ topicList.addEventListener("click", (event) => {
 });
 
 navItems.forEach((item) => {
-  item.addEventListener("click", () => showView(item.dataset.viewTarget));
+  item.addEventListener("click", () => {
+    if (item.dataset.viewTarget === "industry") {
+      industryExpanded = !industryExpanded;
+      showView("industry");
+      renderTopics();
+      return;
+    }
+    showView(item.dataset.viewTarget);
+  });
 });
 
 document.querySelector("#saveSkill").addEventListener("click", () => {

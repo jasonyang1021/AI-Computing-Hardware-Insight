@@ -125,6 +125,29 @@ input {
   padding: 0 12px;
 }
 
+.nav-parent {
+  position: relative;
+  padding-right: 30px;
+}
+
+.nav-parent::after {
+  content: "▾";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: #8fa8af;
+  font-size: 12px;
+}
+
+.nav-parent[aria-expanded="false"]::after {
+  content: "▸";
+}
+
+.nested-topic-list[hidden] {
+  display: none;
+}
+
 .topic-button {
   display: grid;
   gap: 3px;
