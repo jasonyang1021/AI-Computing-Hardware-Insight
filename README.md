@@ -47,7 +47,7 @@ http://localhost:8080
 
 ## Deploy The MVP
 
-The MVP is a static site.
+The MVP is a static site plus optional serverless API routes for AI updates and GitHub archival.
 
 ### Vercel
 
@@ -57,6 +57,26 @@ The MVP is a static site.
 4. Build command: leave empty.
 5. Output directory: leave empty if deploying the repo root, or set root directory to `app`.
 6. The root `index.html` redirects to `/app/`.
+
+### AI + GitHub Archival
+
+The browser UI cannot safely call ChatGPT or write GitHub directly. Real update and save actions use Vercel serverless API routes:
+
+- `POST /api/insight-jobs`: reads the topic Skill and current report, calls the OpenAI Responses API, archives the old report, writes the new report, and commits metadata to GitHub.
+- `POST /api/save-skill`: saves the edited Skill to both `skills/` and `app/skills/`, then commits metadata to GitHub.
+
+Configure these environment variables in Vercel:
+
+```text
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-5.2
+GITHUB_TOKEN=github_pat_...
+GITHUB_REPO=jasonyang1021/AI-Computing-Hardware-Insight
+GITHUB_BRANCH=main
+OPENAI_MAX_OUTPUT_TOKENS=20000
+```
+
+`GITHUB_TOKEN` needs Contents read/write access to this repository. Keep all secrets in Vercel environment variables, never in frontend files.
 
 ### Netlify
 

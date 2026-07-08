@@ -407,7 +407,13 @@ function updateTaskEntry() {
   const hasTopicJob = activeJob && activeJob.topicId === topic.id;
   button.hidden = !hasTopicJob;
   if (!hasTopicJob) return;
-  button.textContent = activeJob.status === "running" ? "打开任务（运行中）" : "打开任务";
+  if (activeJob.status === "running") {
+    button.textContent = "打开任务（运行中）";
+  } else if (activeJob.status === "error") {
+    button.textContent = "打开任务（失败）";
+  } else {
+    button.textContent = "打开任务";
+  }
 }
 
 function renderJobSteps(activeIndex, doneAll = false) {
@@ -419,7 +425,7 @@ function renderJobSteps(activeIndex, doneAll = false) {
     .join("");
 }
 
-function startInsightJob() {
+async function startInsightJob() {
   const topic = activeTopic();
   const brief = document.querySelector("#jobBrief").value.trim() || "按当前 Skill 全量刷新洞察报告。";
   const title = document.querySelector("#jobCommitTitle");
@@ -443,19 +449,30 @@ function startInsightJob() {
   renderJobSteps(index);
 
   activeJobTimer = window.setInterval(() => {
-    index += 1;
-    if (index < jobSteps.length) {
-      activeJob.step = index;
-      renderJobSteps(index);
-      return;
-    }
+    index = Math.min(index + 1, jobSteps.length - 2);
+    activeJob.step = index;
+    renderJobSteps(index);
+  }, 1200);
+
+  try {
+    const apiResponse = await fetch("/api/insight-jobs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        topicId: topic.id,
+        skillName: topic.skill,
+        brief,
+      }),
+    });
+    const result = await apiResponse.json().catch(() => ({}));
+    if (!apiResponse.ok) throw new Error(result.error || "Insight job failed");
 
     window.clearInterval(activeJobTimer);
     activeJobTimer = null;
     button.disabled = false;
     renderJobSteps(jobSteps.length, true);
-    const now = new Date();
-    const stamp = now.toLocaleString("zh-CN", {
+    const updatedAt = result.updatedAt ? new Date(result.updatedAt) : new Date();
+    const stamp = updatedAt.toLocaleString("zh-CN", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -463,20 +480,37 @@ function startInsightJob() {
       minute: "2-digit",
     });
     topic.updatedAt = stamp;
-    insightRefreshVersion = String(now.getTime());
+    insightRefreshVersion = String(updatedAt.getTime());
     document.querySelector("#updatedAt").textContent = `更新时间：${stamp}`;
     if (reportTopics[topic.id]) renderReportArchive(topic);
     activeJob = {
       ...activeJob,
       step: jobSteps.length,
       status: "done",
-      title: "任务已生成待归档草稿",
-      detail: `下一步接后端后，会提交 archive/${topic.id}/${now.toISOString().slice(0, 10)}.html 和 skills/${topic.skill}.md 到 GitHub。`,
+      title: "任务已归档到 GitHub",
+      detail: result.commit?.url
+        ? `已提交 ${result.archivePath}，commit：${result.commit.url}`
+        : `已提交 ${result.archivePath || "报告归档"}。`,
     };
     title.textContent = activeJob.title;
     detail.textContent = activeJob.detail;
     updateTaskEntry();
-  }, 900);
+  } catch (error) {
+    if (activeJobTimer) window.clearInterval(activeJobTimer);
+    activeJobTimer = null;
+    button.disabled = false;
+    activeJob = {
+      ...activeJob,
+      step: Math.max(index, 1),
+      status: "error",
+      title: "任务失败",
+      detail: error.message,
+    };
+    title.textContent = activeJob.title;
+    detail.textContent = activeJob.detail;
+    renderJobSteps(activeJob.step);
+    updateTaskEntry();
+  }
 }
 
 function archiveCurrentReport() {
@@ -525,13 +559,31 @@ function renderSkillPreview(content) {
   `;
 }
 
-function saveFullSkill() {
+async function saveFullSkill() {
   const topic = activeTopic();
   const content = document.querySelector("#fullSkillPrompt").value;
   skillDrafts[topic.id] = content;
   document.querySelector("#skillPrompt").value = content;
   document.querySelector("#skillOwner").textContent = "Draft saved locally";
-  document.querySelector("#skillSaveStatus").textContent = `已生成 GitHub 归档计划：skills/${topic.skill}.md`;
+  const status = document.querySelector("#skillSaveStatus");
+  status.textContent = "正在保存到 GitHub...";
+
+  try {
+    const apiResponse = await fetch("/api/save-skill", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        topicId: topic.id,
+        skillName: topic.skill,
+        content,
+      }),
+    });
+    const result = await apiResponse.json().catch(() => ({}));
+    if (!apiResponse.ok) throw new Error(result.error || "Save skill failed");
+    status.textContent = result.commit?.url ? `已保存：${result.commit.url}` : `已保存到 skills/${topic.skill}.md`;
+  } catch (error) {
+    status.textContent = `保存失败：${error.message}`;
+  }
 }
 
 function renderDeepDive(topic) {
