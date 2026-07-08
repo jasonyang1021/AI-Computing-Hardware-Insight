@@ -87,18 +87,27 @@ input {
 }
 
 .nav,
-.topic-list,
 .registry-list {
   display: grid;
   gap: 8px;
 }
 
-.nav::before,
-.topic-panel > span {
+.nav::before {
   content: "功能";
   color: #8fa8af;
   font-size: 12px;
   font-weight: 800;
+}
+
+.topic-list {
+  display: grid;
+  gap: 4px;
+}
+
+.nested-topic-list {
+  margin: -4px 0 4px 12px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .nav-item,
@@ -119,7 +128,10 @@ input {
 .topic-button {
   display: grid;
   gap: 3px;
-  padding: 10px 12px;
+  min-height: 34px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
 }
 
 .topic-button span {
@@ -133,11 +145,6 @@ input {
 .topic-button:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-}
-
-.topic-panel {
-  display: grid;
-  gap: 10px;
 }
 
 .main {
