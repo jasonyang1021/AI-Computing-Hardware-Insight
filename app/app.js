@@ -153,6 +153,125 @@ const users = [
   ["Strategy Viewer", "Viewer", "Published reports", "Active"],
 ];
 
+const glassArchive = {
+  kicker: "GLASS-CORE-INSIGHT v1.0 · AI COMPUTING HARDWARE INSIGHT",
+  title: "Glass Core（玻璃基板）产业洞察",
+  subtitle: "从材料、工艺、设备到全球竞争格局：日韩台为何领先、美国如何定义路线、中国应从哪里突破",
+  thesis: "核心判断：Glass Core 的竞争本质不是“谁先做出一块玻璃”，而是“谁先把大尺寸玻璃、TGV、铜金属化、细线 RDL、可靠性和客户验证闭环成可量产平台”。",
+  meta: "截至 2026-07-07 ｜ 研究口径：公开权威资料 + 产业链推演 ｜ 规划 Benchmark 非行业统一标准",
+  pages: [
+    {
+      id: "p1",
+      no: "P1",
+      title: "产业链全景",
+      question: "Glass Core 产业价值到底掌握在哪些环节、哪些区域？",
+      takeaway: "2026 年产业处于“多家试验线/样品线 → 量产验证”的临界区。真正稀缺的不是玻璃原片，而是跨越材料、TGV、金属化、RDL、检测、可靠性和 AI/HPC 客户验证的系统能力。",
+      cards: [
+        ["JKT 第一梯队", "生态型优势", "日本掌握特种玻璃、化学材料、精密设备；韩国加速把玻璃芯材料与 FC-BGA 载板能力闭环；台湾拥有先进封装与高端客户验证场景。"],
+        ["US 第二梯队", "路线定义型优势", "Intel 用 AI/HPC 大封装需求定义技术目标；美国通过 CHIPS/NAPMP 支持 glass-core packaging ecosystem，并依托设备与工艺控制能力建立先进封装体系。"],
+        ["CN 第三梯队", "制造追赶型优势", "显示玻璃、精密加工、激光、湿法、电镀和面板搬运具有可迁移基础；但半导体级大板良率、超细 RDL、可靠性数据库和 AI 客户量产认证仍是核心 Gap。"],
+      ],
+      flow: ["Glass Core", "材料", "工艺", "设备", "先进封装", "AI GPU / ASIC", "AI Server"],
+    },
+    {
+      id: "p2",
+      no: "P2",
+      title: "材料体系分析",
+      question: "哪些材料是真正瓶颈，玻璃芯是否会替代现有材料体系？",
+      takeaway: "Glass Core 不是“用玻璃替掉 ABF”这么简单。近中期最可能的主流形态是 Glass Core + Organic Build-up / RDL 的混合结构，真正机会来自界面、附着、CTE 匹配、低损耗和大板均匀性。",
+      table: {
+        heads: ["材料", "核心 KPI", "全球龙头", "中国 Gap", "中国建议"],
+        rows: [
+          ["Glass Substrate", "CTE、TTV、Bow/Warpage、Ra、强度、介电损耗", "AGC、NEG、Corning、SCHOTT、HOYA", "封装专用玻璃 composition IP、超低缺陷大板、TGV 适配", "优先做“玻璃+TGV+金属化”的联合材料平台，不单独卖原片"],
+          ["Photoresist", "Resolution、CDU、玻璃/金属附着、耐电镀、Panel 涂布均匀性", "TOK、JSR、DuPont/Qnity", "厚膜解析度、大板均匀性、低残留", "与曝光/电镀设备共开发，不做孤立材料认证"],
+          ["Copper Material", "Seed continuity、adhesion、via fill void、uniformity、stress", "Atotech/MKS、DuPont/Qnity、JCU、Uyemura", "高 AR 与低应力、高均匀性的深孔填充", "建立“孔型×药水×波形×设备”联合 DOE 数据库"],
+          ["ABF / Dielectric", "低 Dk/Df、附着力、低温固化、层间可靠性", "Ajinomoto、JSR、DuPont、Resonac", "高端 Build-up 膜、玻璃界面可靠性", "不要以替代 ABF 为唯一叙事；优先攻玻璃界面兼容"],
+        ],
+      },
+    },
+    {
+      id: "p3",
+      no: "P3",
+      title: "工艺体系分析",
+      question: "Glass Core 真正卡在哪些工艺，哪个步骤决定量产成败？",
+      takeaway: "量产瓶颈不是单一 TGV 打孔，而是孔形成 → 清洗/活化 → Seed 连续性 → 深孔铜填充 → CMP → 细线 RDL → 大板检测的累积良率。",
+      table: {
+        heads: ["工艺", "Benchmark / KPI", "中国 Gap", "五年机会", "中国建议"],
+        rows: [
+          ["TGV Formation", "Laser modification+etch 与 CO2 direct drill 双路线；看孔径、pitch、AR、crack、holes/s", "HVM throughput 与 defect ppm", "高密度 TGV", "不要押单路线，建立双工艺 test vehicle"],
+          ["Seed Layer", "sidewall coverage、adhesion、continuity、stress", "高 AR sidewall 连续性", "ALD / advanced seed", "发展薄种子+高覆盖替代路线"],
+          ["Copper Plating", "void、seam、uniformity、stress、fill time", "高 AR + Panel 均匀", "最大国产机会之一", "药水-波形-夹具-流场联合优化"],
+          ["RDL", "近中期量产争夺 5/5 μm 级，2-5 μm 为工业化方向", "Panel distortion / overlay", "2-5 μm 工业化", "以 adaptive lithography + AOI 做闭环"],
+          ["Inspection", "sub-micron AOI、3D metrology、TGV 内部缺陷检测", "内部孔缺陷/大板高速检测", "最确定设备机会", "优先投资 inline metrology"],
+        ],
+      },
+    },
+    {
+      id: "p4",
+      no: "P4",
+      title: "设备体系分析",
+      question: "哪些设备最可能形成新一轮卡位与国产替代？",
+      takeaway: "Glass Core 给设备行业带来的最大变化是从 300 mm wafer 思维转向 510×515 / 600×600 / 650×650 mm Panel 思维。最值得下注的是 TGV、Panel 光刻、PVD/Seed、深孔电镀、AOI/3D Metrology、Warpage 与自动搬运。",
+      table: {
+        heads: ["设备", "对应工艺", "核心 KPI", "国产机会", "建议"],
+        rows: [
+          ["Laser Drilling / Modification", "TGV", "孔径/锥度、crack、holes/s、AR", "★★★★★", "绑定蚀刻/检测形成整线"],
+          ["Electro Plating", "TGV fill / RDL", "void-free、uniformity、current density", "★★★★★", "优先国产突破"],
+          ["AOI / 3D Metrology", "RDL / TGV", "sub-μm detection、3D、false call", "★★★★★", "做 inline + AI defect classification"],
+          ["Warpage Inspection", "全流程", "μm-scale map、thermal warpage", "★★★★★", "低成本大板在线测量"],
+          ["Panel Handling", "全流程搬运", "breakage ppm、edge contact、flatness support", "★★★★★", "以显示面板经验迁移封装"],
+        ],
+      },
+    },
+    {
+      id: "p5",
+      no: "P5",
+      title: "全球竞争格局",
+      question: "为什么首先在日韩台形成？美国如何定义方向？中国到底处于什么位置？",
+      takeaway: "全球竞争不是“三个地区同时做同一件事”。日韩台负责把产业链做成，美国负责把需求和架构定义清楚，中国的机会在于把大规模制造、设备国产化和成本工程做出来。",
+      cards: [
+        ["第一梯队 JKT", "为什么先形成？", "日本有特种玻璃、光刻胶、CMP、ABF、精密设备；韩国有 FC-BGA 与大客户协同；台湾有先进封装与客户验证场景。"],
+        ["第二梯队 US", "如何定义路线？", "Intel 用 AI/HPC 大封装需求定义技术目标，美国政策和设备生态推动 glass-core packaging ecosystem。"],
+        ["第三梯队 CN", "当前真实位置", "优势在显示玻璃、脆性材料加工、激光、湿法、电镀和自动化；短板是长期可靠性数据、先进 RDL overlay、国际头部客户认证。"],
+      ],
+    },
+    {
+      id: "p6",
+      no: "P6",
+      title: "未来技术路线",
+      question: "未来五年 Glass Core 会沿哪几条路线演进？",
+      takeaway: "未来五年的主线不是“全玻璃替代一切”，而是从 Glass Core + Organic Build-up 起步，逐步走向大 Panel、细 RDL、光电共封装与系统级封装。",
+      cards: [
+        ["Route A", "Glass Core + ABF Build-up", "近中期主航道：用玻璃解决刚性、平整度、尺寸稳定性，保留有机 build-up 做细线与多层。"],
+        ["Route B", "Glass Interposer + Organic Substrate", "适合大尺寸与成本敏感场景，可能先替代部分 silicon interposer / large-area interposer 功能。"],
+        ["Route C", "CPO / Optical Integration", "利用玻璃电学、光学与尺寸稳定性，承接光引擎、无源器件、低损耗互连。"],
+      ],
+    },
+    {
+      id: "p7",
+      no: "P7",
+      title: "中国企业建议",
+      question: "未来中国最值得突破哪些方向，如何避免低水平重复投资？",
+      takeaway: "中国不应把 Glass Core 定义为“再建一条玻璃线”，而应定义为先进封装制造平台争夺战。最优策略是优先攻下可形成系统壁垒的战场。",
+      cards: [
+        ["S", "大板 AOI / 3D Metrology / Warpage", "所有路线都需要，且 HVM 必须 inline。KPI：sub-μm defect capture、TGV 3D、600 mm map、低 false call。"],
+        ["S", "TGV + Metallization 联合平台", "单独打孔没有壁垒，孔形成到无空洞铜填充才是产品。"],
+        ["S", "Hybrid Glass + ABF / RDL", "最接近首批量产结构，重点看 adhesion、2-5 μm roadmap、warpage、TCT/HAST。"],
+        ["A+", "Reliability Test Vehicle & Standard", "没有长期数据就进不了 AI/HPC 供应链；要建立失效库、跨批次 correlation、客户联合认证。"],
+      ],
+    },
+  ],
+  sources: [
+    "Intel Newsroom — Glass substrates for advanced packaging",
+    "Nippon Electric Glass — Large TGV glass core substrates",
+    "DNP — TGV glass core pilot line",
+    "Samsung Electro-Mechanics — Glass substrate pilot / mass production target",
+    "U.S. Department of Commerce — CHIPS advanced packaging awards",
+    "Onto Innovation / LPKF — HVM collaboration for glass core substrates",
+    "Ajinomoto — ABF high-performance package substrate material",
+  ],
+};
+
 let activeTopicId = "glass-core";
 let activeView = "industry";
 const skillDrafts = {};
@@ -217,46 +336,152 @@ function renderDeepDive(topic) {
   }
 
   panel.hidden = false;
-  document.querySelector("#deepDiveTitle").textContent = topic.deepDive.title;
-  document.querySelector("#deepDiveNote").textContent = topic.deepDive.note;
-  document.querySelector("#benchmarkRows").innerHTML = topic.deepDive.benchmarks
-    .map(([dimension, kpi, benchmark, meaning]) => `
-      <tr>
-        <td><strong>${dimension}</strong></td>
-        <td>${kpi}</td>
-        <td>${benchmark}</td>
-        <td>${meaning}</td>
-      </tr>
-    `)
-    .join("");
-  document.querySelector("#competitionRows").innerHTML = topic.deepDive.competition
-    .map(([camp, strength, gap, judgment]) => `
-      <tr>
-        <td><strong>${camp}</strong></td>
-        <td>${strength}</td>
-        <td>${gap}</td>
-        <td>${judgment}</td>
-      </tr>
-    `)
-    .join("");
-  document.querySelector("#capabilityList").innerHTML = topic.deepDive.capabilities
-    .map(([name, scope, insight]) => `
-      <div class="capability-item">
-        <strong>${name}</strong>
-        <span>${scope}</span>
-        <p>${insight}</p>
+  panel.classList.toggle("archive-mode", topic.id === "glass-core");
+  if (topic.id === "glass-core") {
+    renderGlassArchive();
+    return;
+  }
+
+  panel.innerHTML = `
+    <div class="section-title">
+      <div>
+        <p class="eyebrow">CHIF Deep Dive</p>
+        <h4>${topic.deepDive.title}</h4>
       </div>
-    `)
+      <span>${topic.deepDive.note}</span>
+    </div>
+
+    <section class="deep-grid">
+      <article class="panel wide-panel">
+        <p class="eyebrow">Benchmark / KPI</p>
+        <h4>关键指标与 Benchmark</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>维度</th><th>核心 KPI</th><th>Benchmark</th><th>产业含义</th></tr>
+            </thead>
+            <tbody>
+              ${topic.deepDive.benchmarks.map(([dimension, kpi, benchmark, meaning]) => `
+                <tr>
+                  <td><strong>${dimension}</strong></td>
+                  <td>${kpi}</td>
+                  <td>${benchmark}</td>
+                  <td>${meaning}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel wide-panel">
+        <p class="eyebrow">Competition</p>
+        <h4>全球竞争矩阵</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>阵营</th><th>优势</th><th>短板</th><th>判断</th></tr>
+            </thead>
+            <tbody>
+              ${topic.deepDive.competition.map(([camp, strength, gap, judgment]) => `
+                <tr>
+                  <td><strong>${camp}</strong></td>
+                  <td>${strength}</td>
+                  <td>${gap}</td>
+                  <td>${judgment}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">Materials / Process / Equipment</p>
+        <h4>材料、工艺、设备拆解</h4>
+        <div class="capability-list">
+          ${topic.deepDive.capabilities.map(([name, scope, insight]) => `
+            <div class="capability-item">
+              <strong>${name}</strong>
+              <span>${scope}</span>
+              <p>${insight}</p>
+            </div>
+          `).join("")}
+        </div>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">China Gap / Opportunity</p>
+        <h4>中国 Gap 与五年机会</h4>
+        <div class="opportunity-list">
+          ${topic.deepDive.opportunities.map(([level, title, action]) => `
+            <div class="opportunity-item">
+              <span>${level}</span>
+              <strong>${title}</strong>
+              <p>${action}</p>
+            </div>
+          `).join("")}
+        </div>
+      </article>
+    </section>
+  `;
+}
+
+function renderGlassArchive() {
+  const nav = glassArchive.pages
+    .map((page) => `<a href="#glass-${page.id}">${page.no} ${page.title}</a>`)
     .join("");
-  document.querySelector("#opportunityList").innerHTML = topic.deepDive.opportunities
-    .map(([level, title, action]) => `
-      <div class="opportunity-item">
-        <span>${level}</span>
-        <strong>${title}</strong>
-        <p>${action}</p>
+  const pages = glassArchive.pages
+    .map((page) => {
+      const flow = page.flow
+        ? `<div class="archive-flow">${page.flow.map((node, index) => `<span class="${index >= page.flow.length - 2 ? "hot" : ""}">${node}</span>${index < page.flow.length - 1 ? "<i>→</i>" : ""}`).join("")}</div>`
+        : "";
+      const cards = page.cards
+        ? `<div class="archive-card-grid">${page.cards.map(([tag, title, text]) => `<article class="archive-card"><em>${tag}</em><h5>${title}</h5><p>${text}</p></article>`).join("")}</div>`
+        : "";
+      const table = page.table
+        ? `<div class="archive-table-wrap"><table><thead><tr>${page.table.heads.map((head) => `<th>${head}</th>`).join("")}</tr></thead><tbody>${page.table.rows.map((row) => `<tr>${row.map((cell, index) => `<td>${index === 0 ? `<strong>${cell}</strong>` : cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
+        : "";
+      return `
+        <section class="archive-page" id="glass-${page.id}">
+          <div class="archive-page-head">
+            <div class="archive-page-no">${page.no}</div>
+            <div>
+              <h4>${page.title}</h4>
+              <p>${page.question}</p>
+            </div>
+          </div>
+          <div class="archive-key">${page.takeaway}</div>
+          ${flow}
+          ${cards}
+          ${table}
+        </section>
+      `;
+    })
+    .join("");
+
+  panel.innerHTML = `
+    <section class="archive-hero">
+      <span>${glassArchive.kicker}</span>
+      <h3>${glassArchive.title}</h3>
+      <p>${glassArchive.subtitle}</p>
+      <strong>${glassArchive.thesis}</strong>
+      <small>${glassArchive.meta}</small>
+    </section>
+    <nav class="archive-nav">${nav}<a href="#glass-sources">来源</a></nav>
+    ${pages}
+    <section class="archive-page archive-sources" id="glass-sources">
+      <div class="archive-page-head">
+        <div class="archive-page-no">S</div>
+        <div>
+          <h4>Sources & Evidence Base</h4>
+          <p>优先采用企业官方、政府/公共机构、官方产品资料；少量研究综述用于技术 Benchmark。</p>
+        </div>
       </div>
-    `)
-    .join("");
+      <ol>${glassArchive.sources.map((source) => `<li>${source}</li>`).join("")}</ol>
+      <p class="archive-note">方法说明：报告把“公开事实”与“规划 Benchmark / 战略推演”分开。企业名单用于能力定位，不代表已进入特定客户量产供应链。</p>
+    </section>
+  `;
 }
 
 function renderSkillRegistry() {
