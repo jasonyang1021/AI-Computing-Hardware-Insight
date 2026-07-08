@@ -319,32 +319,6 @@ function renderIndustry() {
   document.querySelector("#skillName").textContent = topic.skill;
   renderSkillEditor(topic);
 
-  const conclusionGrid = document.querySelector("#conclusionGrid");
-  const summaryGrid = document.querySelector("#summaryGrid");
-  conclusionGrid.hidden = isGlassReport;
-  summaryGrid.hidden = isGlassReport;
-
-  conclusionGrid.innerHTML = topic.conclusions
-    .map(([label, score, text]) => `
-      <article class="conclusion-card">
-        <span>${label}</span>
-        <strong>${score}</strong>
-        <p>${text}</p>
-      </article>
-    `)
-    .join("");
-
-  document.querySelector("#findingList").innerHTML = topic.findings.map((item) => `<li>${item}</li>`).join("");
-  document.querySelector("#riskList").innerHTML = topic.risks.map((item) => `<li>${item}</li>`).join("");
-  document.querySelector("#actionList").innerHTML = topic.actions.map((item) => `<li>${item}</li>`).join("");
-  document.querySelector("#chainList").innerHTML = topic.chain
-    .map(([name, detail]) => `
-      <div class="chain-step">
-        <strong>${name}</strong>
-        <span>${detail}</span>
-      </div>
-    `)
-    .join("");
   renderDeepDive(topic);
 }
 
@@ -544,13 +518,6 @@ function showView(view) {
   document.body.dataset.view = view;
   navItems.forEach((item) => item.classList.toggle("active", item.dataset.viewTarget === view));
   viewSections.forEach((section) => section.classList.toggle("active", section.dataset.viewSection === view));
-  const labels = {
-    industry: "产业洞察",
-    academic: "学术洞察",
-    skills: "Skills 管理",
-    permissions: "权限管理",
-  };
-  document.querySelector("#pageTitle").textContent = labels[view];
 }
 
 topicList.addEventListener("click", (event) => {
