@@ -5,6 +5,7 @@ const topics = [
     category: "Advanced Packaging",
     subtitle: "先进封装 Glass Core 产业洞察",
     status: "Draft",
+    updatedAt: "2026-07-08",
     skill: "glass-core-insight",
     conclusions: [
       ["市场垄断性", "高", "材料、TGV、金属化和客户验证集中在少数成熟生态，短期壁垒主要来自认证和良率学习曲线。"],
@@ -58,6 +59,7 @@ const topics = [
     category: "Memory",
     subtitle: "高带宽存储产业洞察",
     status: "Draft",
+    updatedAt: "2026-07-08",
     skill: "hbm-industry-insight",
     conclusions: [
       ["价值链重构", "高", "HBM4 后竞争从标准 DRAM 产品转向定制化系统组件。"],
@@ -114,6 +116,7 @@ const topics = [
     category: "Networking",
     subtitle: "AI 数据中心光互联产业洞察",
     status: "Planned",
+    updatedAt: "待更新",
     skill: "optical-interconnect-insight",
     conclusions: [
       ["需求拉动", "高", "AI 集群规模扩大推动交换、光模块、硅光和 CPO 关注度上升。"],
@@ -275,6 +278,9 @@ const glassArchive = {
 let activeTopicId = "glass-core";
 let activeView = "industry";
 const skillDrafts = {};
+const skillCache = {};
+let insightRefreshVersion = "20260708";
+let skillPanelOpen = false;
 
 const topicList = document.querySelector("#topicList");
 const navItems = document.querySelectorAll("[data-view-target]");
@@ -297,14 +303,28 @@ function renderTopics() {
 
 function renderIndustry() {
   const topic = activeTopic();
+  const isGlassReport = topic.id === "glass-core";
+  document.querySelector(".industry-layout").classList.toggle("report-only", isGlassReport && !skillPanelOpen);
+  document.querySelector(".skill-card").hidden = isGlassReport && !skillPanelOpen;
+  document.querySelector("#toggleSkill").textContent = skillPanelOpen ? "收起 Skill" : "查看 Skill";
+  document.querySelector("#toggleSkill").hidden = !isGlassReport;
+  document.querySelector("#topicCategory").hidden = isGlassReport;
+  document.querySelector("#topicSubtitle").hidden = isGlassReport;
+  document.querySelector("#topicStatus").hidden = isGlassReport;
   document.querySelector("#topicCategory").textContent = topic.category;
   document.querySelector("#topicTitle").textContent = topic.name;
   document.querySelector("#topicSubtitle").textContent = topic.subtitle;
   document.querySelector("#topicStatus").textContent = topic.status;
+  document.querySelector("#updatedAt").textContent = `更新时间：${topic.updatedAt || "未更新"}`;
   document.querySelector("#skillName").textContent = topic.skill;
-  document.querySelector("#skillPrompt").value = skillDrafts[topic.id] || topic.prompt;
+  renderSkillEditor(topic);
 
-  document.querySelector("#conclusionGrid").innerHTML = topic.conclusions
+  const conclusionGrid = document.querySelector("#conclusionGrid");
+  const summaryGrid = document.querySelector("#summaryGrid");
+  conclusionGrid.hidden = isGlassReport;
+  summaryGrid.hidden = isGlassReport;
+
+  conclusionGrid.innerHTML = topic.conclusions
     .map(([label, score, text]) => `
       <article class="conclusion-card">
         <span>${label}</span>
@@ -326,6 +346,33 @@ function renderIndustry() {
     `)
     .join("");
   renderDeepDive(topic);
+}
+
+async function renderSkillEditor(topic) {
+  const textarea = document.querySelector("#skillPrompt");
+  const owner = document.querySelector("#skillOwner");
+  textarea.value = skillDrafts[topic.id] || "正在加载 Skill...";
+  owner.textContent = skillDrafts[topic.id] ? "Draft saved locally" : "Loading from GitHub skill";
+
+  if (skillDrafts[topic.id]) return;
+
+  const path = `skills/${topic.skill}.md`;
+  try {
+    if (!skillCache[path]) {
+      const response = await fetch(path, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Cannot load ${path}`);
+      skillCache[path] = await response.text();
+    }
+    if (activeTopicId === topic.id) {
+      textarea.value = skillCache[path];
+      owner.textContent = "Loaded from skill directory";
+    }
+  } catch (error) {
+    if (activeTopicId === topic.id) {
+      textarea.value = topic.prompt;
+      owner.textContent = "Fallback prompt";
+    }
+  }
 }
 
 function renderDeepDive(topic) {
@@ -428,60 +475,44 @@ function renderDeepDive(topic) {
 }
 
 function renderGlassArchive() {
-  const nav = glassArchive.pages
-    .map((page) => `<a href="#glass-${page.id}">${page.no} ${page.title}</a>`)
-    .join("");
-  const pages = glassArchive.pages
-    .map((page) => {
-      const flow = page.flow
-        ? `<div class="archive-flow">${page.flow.map((node, index) => `<span class="${index >= page.flow.length - 2 ? "hot" : ""}">${node}</span>${index < page.flow.length - 1 ? "<i>→</i>" : ""}`).join("")}</div>`
-        : "";
-      const cards = page.cards
-        ? `<div class="archive-card-grid">${page.cards.map(([tag, title, text]) => `<article class="archive-card"><em>${tag}</em><h5>${title}</h5><p>${text}</p></article>`).join("")}</div>`
-        : "";
-      const table = page.table
-        ? `<div class="archive-table-wrap"><table><thead><tr>${page.table.heads.map((head) => `<th>${head}</th>`).join("")}</tr></thead><tbody>${page.table.rows.map((row) => `<tr>${row.map((cell, index) => `<td>${index === 0 ? `<strong>${cell}</strong>` : cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
-        : "";
-      return `
-        <section class="archive-page" id="glass-${page.id}">
-          <div class="archive-page-head">
-            <div class="archive-page-no">${page.no}</div>
-            <div>
-              <h4>${page.title}</h4>
-              <p>${page.question}</p>
-            </div>
-          </div>
-          <div class="archive-key">${page.takeaway}</div>
-          ${flow}
-          ${cards}
-          ${table}
-        </section>
-      `;
-    })
-    .join("");
+  const panel = document.querySelector("#deepDivePanel");
+  const reportPath = `reports/glass-core-report.html?v=${insightRefreshVersion}`;
 
   panel.innerHTML = `
-    <section class="archive-hero">
-      <span>${glassArchive.kicker}</span>
-      <h3>${glassArchive.title}</h3>
-      <p>${glassArchive.subtitle}</p>
-      <strong>${glassArchive.thesis}</strong>
-      <small>${glassArchive.meta}</small>
-    </section>
-    <nav class="archive-nav">${nav}<a href="#glass-sources">来源</a></nav>
-    ${pages}
-    <section class="archive-page archive-sources" id="glass-sources">
-      <div class="archive-page-head">
-        <div class="archive-page-no">S</div>
-        <div>
-          <h4>Sources & Evidence Base</h4>
-          <p>优先采用企业官方、政府/公共机构、官方产品资料；少量研究综述用于技术 Benchmark。</p>
-        </div>
-      </div>
-      <ol>${glassArchive.sources.map((source) => `<li>${source}</li>`).join("")}</ol>
-      <p class="archive-note">方法说明：报告把“公开事实”与“规划 Benchmark / 战略推演”分开。企业名单用于能力定位，不代表已进入特定客户量产供应链。</p>
+    <section class="archive-embed">
+      <iframe id="glassReportFrame" class="archive-frame" src="${reportPath}" title="Glass Core 产业洞察完整报告"></iframe>
     </section>
   `;
+}
+
+function updateInsight() {
+  const topic = activeTopic();
+  const now = new Date();
+  const stamp = now.toLocaleString("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  topic.updatedAt = stamp;
+  insightRefreshVersion = String(now.getTime());
+  document.querySelector("#updatedAt").textContent = `更新时间：${stamp}`;
+  if (topic.id === "glass-core") renderGlassArchive();
+}
+
+function downloadSkill() {
+  const topic = activeTopic();
+  const content = document.querySelector("#skillPrompt").value;
+  const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${topic.skill}.md`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
 function renderSkillRegistry() {
@@ -526,6 +557,7 @@ topicList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-topic]");
   if (!button) return;
   activeTopicId = button.dataset.topic;
+  skillPanelOpen = false;
   showView("industry");
   renderTopics();
   renderIndustry();
@@ -538,6 +570,15 @@ navItems.forEach((item) => {
 document.querySelector("#saveSkill").addEventListener("click", () => {
   skillDrafts[activeTopicId] = document.querySelector("#skillPrompt").value;
   document.querySelector("#skillOwner").textContent = "Draft saved locally";
+});
+
+document.querySelector("#downloadSkill").addEventListener("click", downloadSkill);
+
+document.querySelector("#updateInsight").addEventListener("click", updateInsight);
+
+document.querySelector("#toggleSkill").addEventListener("click", () => {
+  skillPanelOpen = !skillPanelOpen;
+  renderIndustry();
 });
 
 document.querySelector("#resetSkill").addEventListener("click", () => {

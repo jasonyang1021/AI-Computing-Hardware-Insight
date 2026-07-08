@@ -50,12 +50,19 @@
                 <h3 id="topicTitle">Glass Core</h3>
                 <p id="topicSubtitle">先进封装玻璃基板产业洞察</p>
               </div>
-              <span id="topicStatus" class="status-pill">Draft</span>
+              <div class="report-side">
+                <span id="topicStatus" class="status-pill">Draft</span>
+                <div class="report-actions">
+                  <button class="ghost-button compact-button" type="button" id="toggleSkill">查看 Skill</button>
+                  <button class="primary-button compact-button" type="button" id="updateInsight">更新洞察</button>
+                  <span id="updatedAt">更新时间：2026-07-08</span>
+                </div>
+              </div>
             </div>
 
             <section class="conclusion-grid" id="conclusionGrid"></section>
 
-            <section class="content-grid">
+            <section class="content-grid" id="summaryGrid">
               <article class="panel">
                 <p class="eyebrow">Key Findings</p>
                 <h4>关键判断</h4>
@@ -153,6 +160,7 @@
             </label>
             <div class="skill-actions">
               <button class="ghost-button" type="button" id="resetSkill">重置</button>
+              <button class="ghost-button" type="button" id="downloadSkill">下载 Skill</button>
               <button class="primary-button" type="button" id="saveSkill">保存草稿</button>
             </div>
           </aside>

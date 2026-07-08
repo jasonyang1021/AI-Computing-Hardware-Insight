@@ -198,6 +198,14 @@ textarea {
   gap: 16px;
 }
 
+.industry-layout.report-only {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.industry-layout.report-only .report-surface {
+  padding-bottom: 12px;
+}
+
 .report-surface,
 .skill-card,
 .panel,
@@ -239,6 +247,24 @@ textarea {
   color: var(--accent);
   font-size: 12px;
   font-weight: 800;
+}
+
+.report-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.report-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
 }
 
 .conclusion-grid {
@@ -432,6 +458,7 @@ textarea {
 
 .skill-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -448,6 +475,12 @@ textarea {
   background: var(--accent);
   color: #fff;
   font-weight: 800;
+}
+
+.compact-button {
+  min-height: 34px;
+  padding: 0 11px;
+  font-size: 12px;
 }
 
 .ghost-button {
@@ -566,6 +599,66 @@ td strong {
   display: block;
   margin-top: 22px;
   color: rgba(255, 255, 255, 0.72);
+}
+
+.archive-embed {
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.archive-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  background: #fbfcfd;
+}
+
+.archive-toolbar h4 {
+  margin: 4px 0 3px;
+  color: var(--navy);
+  font-size: 18px;
+}
+
+.archive-toolbar span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ghost-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.archive-frame {
+  display: block;
+  width: 100%;
+  height: 82vh;
+  min-height: 860px;
+  border: 0;
+  background: #fff;
 }
 
 .archive-nav {
@@ -787,6 +880,15 @@ td strong {
     flex-direction: column;
   }
 
+  .report-side {
+    align-items: flex-start;
+  }
+
+  .report-actions,
+  .archive-toolbar {
+    justify-content: flex-start;
+  }
+
   .conclusion-grid {
     grid-template-columns: 1fr;
   }
@@ -805,6 +907,15 @@ td strong {
 
   .archive-page {
     padding: 22px 16px;
+  }
+
+  .archive-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .archive-frame {
+    min-height: 640px;
   }
 
   .archive-card-grid {

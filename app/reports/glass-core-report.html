@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Glass Core（玻璃基板）产业洞察｜2026-07-07</title>
+<meta name="description" content="Glass Core（玻璃基板）产业洞察：产业链、材料、工艺、设备、全球竞争、未来路线与中国建议。" />
+<style>
+:root{
+  --bg:#f4f5f7; --paper:#ffffff; --ink:#20242b; --muted:#66707d;
+  --red:#8d1e2d; --red2:#b62c42; --red-soft:#f7e9ec;
+  --navy:#203247; --blue:#315d89; --green:#27735f; --gold:#a36f1f;
+  --line:#dfe3e8; --soft:#f8f9fb; --shadow:0 12px 34px rgba(21,28,38,.08);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--ink); background:var(--bg);
+  font-family:Inter,"SF Pro Display","SF Pro Text","PingFang SC","Microsoft YaHei","Noto Sans CJK SC",Arial,sans-serif;
+  line-height:1.6;
+}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1320px;margin:auto;padding:24px 20px 80px}
+.hero{
+  position:relative;overflow:hidden;border-radius:28px;padding:58px 58px 52px;
+  color:#fff;background:
+  radial-gradient(circle at 88% 8%,rgba(255,255,255,.15),transparent 26%),
+  linear-gradient(135deg,#55111a 0%,#8d1e2d 55%,#321017 100%);
+  box-shadow:var(--shadow)
+}
+.hero:after{
+  content:"";position:absolute;width:460px;height:460px;right:-125px;bottom:-180px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 45px rgba(255,255,255,.035),0 0 0 90px rgba(255,255,255,.025)
+}
+.kicker{display:inline-block;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.09);font-size:12px;font-weight:800;letter-spacing:.09em}
+h1{font-size:50px;line-height:1.1;margin:20px 0 16px;max-width:970px}
+.hero .subtitle{font-size:20px;max-width:940px;color:rgba(255,255,255,.9)}
+.hero .meta{margin-top:32px;font-size:13px;color:rgba(255,255,255,.7)}
+.hero .thesis{
+  margin-top:28px;max-width:1050px;padding:18px 20px;border-radius:14px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);font-size:22px;font-weight:800
+}
+.nav{
+  position:sticky;top:8px;z-index:50;display:flex;gap:7px;flex-wrap:wrap;
+  margin:16px 0 26px;padding:10px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:15px;box-shadow:0 8px 24px rgba(21,28,38,.06)
+}
+.nav a{padding:7px 10px;border-radius:9px;color:#454d59;font-size:13px;font-weight:750}
+.nav a:hover{background:var(--red-soft);color:var(--red);text-decoration:none}
+.page{
+  margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:34px
+}
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:20px}
+.page-no{flex:0 0 auto;width:58px;height:58px;border-radius:15px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900}
+.page-title{flex:1}
+.page-title h2{margin:0;color:var(--red);font-size:31px;line-height:1.2}
+.page-title p{margin:7px 0 0;color:var(--muted)}
+.key{
+  margin:20px 0 22px;padding:20px 22px;border-left:5px solid var(--red);border-radius:12px;
+  background:linear-gradient(90deg,var(--red-soft),#fff);font-size:20px;font-weight:800;color:#4d1e26
+}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:20px}
+.card h3{margin:0 0 8px;color:var(--navy);font-size:18px}
+.card p{margin:0;color:#565e69}
+.tag{display:inline-flex;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:850;background:var(--red-soft);color:var(--red);margin-bottom:9px}
+.metric{font-size:32px;line-height:1.05;font-weight:900;color:var(--red);margin:2px 0 7px}
+.small{font-size:12px;color:var(--muted)}
+.flow{padding:22px;border-radius:16px;background:var(--soft);border:1px dashed #cdd3da;margin:16px 0}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.node{padding:11px 13px;border:1px solid #dbe0e6;border-radius:11px;background:#fff;color:var(--navy);font-weight:800;text-align:center;min-width:120px}
+.node.hot{background:var(--red);border-color:var(--red);color:#fff}.node.blue{background:#eaf1f7;color:#244e75;border-color:#c9d9e7}.node.green{background:#e8f4f0;color:#23614f;border-color:#c9e2d9}
+.arrow{color:#9aa2ad;font-weight:900}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:1020px}
+th,td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{position:sticky;top:0;background:#f3f5f7;color:var(--navy);font-size:12px;z-index:2}
+tr:last-child td{border-bottom:none}
+td strong{color:#273443}
+.matrix td:nth-child(n+2){text-align:center}
+.score{display:inline-flex;width:29px;height:29px;border-radius:50%;align-items:center;justify-content:center;font-weight:900}
+.s5{background:#7e1928;color:#fff}.s4{background:#b44254;color:#fff}.s3{background:#ebc4cc;color:#62232e}.s2{background:#eceff2;color:#53606e}.s1{background:#f5f6f7;color:#8a939e}
+.status{display:inline-block;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:850}
+.st-hvm{background:#dff1ea;color:#1f674f}.st-pilot{background:#f7e8c8;color:#795415}.st-rd{background:#e5ebf2;color:#466179}
+.conf{display:inline-block;padding:2px 6px;border-radius:999px;font-size:10px;font-weight:800;background:#edf0f3;color:#5d6773}
+.barlist{display:grid;gap:10px}
+.barline{display:grid;grid-template-columns:180px 1fr 58px;gap:10px;align-items:center}
+.bar{height:12px;background:#edf0f2;border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--red2));border-radius:999px}
+.callout{padding:18px;border-radius:14px;background:#f8f9fb;border:1px solid var(--line)}
+.callout h3{margin:0 0 6px;color:var(--navy)}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.phase{border:1px solid var(--line);border-radius:14px;padding:17px;background:#fff}
+.phase .yr{font-size:12px;color:var(--red);font-weight:900}.phase h3{margin:5px 0 7px;color:var(--navy);font-size:17px}.phase ul{margin:0;padding-left:18px;color:#56606d;font-size:13px}
+.risk{color:#7b2532;font-weight:750}
+.sources ol{padding-left:22px}.sources li{margin:9px 0;color:#515a66}
+.footer{text-align:center;margin-top:25px;color:#7a828d;font-size:12px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.legend span{font-size:11px;color:#5c6571}
+@media(max-width:900px){
+  .wrap{padding:14px 12px 50px}.hero{padding:38px 24px}.hero h1{font-size:34px}.hero .subtitle{font-size:17px}.hero .thesis{font-size:18px}
+  .page{padding:23px 18px}.g2,.g3,.g4,.timeline{grid-template-columns:1fr}.page-title h2{font-size:25px}
+  .barline{grid-template-columns:120px 1fr 48px}
+}
+@media print{
+  body{background:#fff}.wrap{max-width:none;padding:0}.nav{display:none}.hero,.page{box-shadow:none}
+  .page{break-before:page;border:none;border-radius:0;margin:0;padding:12mm 10mm}.hero{min-height:180mm;border-radius:0}
+  .table-wrap{overflow:visible}table{font-size:9px;min-width:0}th,td{padding:5px}.sources{break-before:page}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header class="hero">
+  <span class="kicker">GLASS-CORE-INSIGHT v1.0 · AI COMPUTING HARDWARE INSIGHT</span>
+  <h1>Glass Core（玻璃基板）产业洞察</h1>
+  <div class="subtitle">从材料、工艺、设备到全球竞争格局：日韩台为何领先、美国如何定义路线、中国应从哪里突破</div>
+  <div class="thesis">核心判断：Glass Core 的竞争本质不是“谁先做出一块玻璃”，而是“谁先把大尺寸玻璃、TGV、铜金属化、细线 RDL、可靠性和客户验证闭环成可量产平台”。</div>
+  <div class="meta">截至 2026-07-07 ｜ 研究口径：公开权威资料 + 产业链推演 ｜ 所有“规划 Benchmark”均明确标识，非行业统一标准</div>
+</header>
+
+<nav class="nav">
+  <a href="#p1">P1 产业链全景</a><a href="#p2">P2 材料</a><a href="#p3">P3 工艺</a><a href="#p4">P4 设备</a>
+  <a href="#p5">P5 全球竞争</a><a href="#p6">P6 未来路线</a><a href="#p7">P7 中国建议</a><a href="#src">来源</a>
+</nav>
+
+<section id="p1" class="page">
+  <div class="page-head">
+    <div class="page-no">P1</div>
+    <div class="page-title"><h2>产业链全景</h2><p>核心问题：Glass Core 产业价值到底掌握在哪些环节、哪些区域？</p></div>
+  </div>
+  <div class="key">Key Takeaway：2026 年产业处于“多家试验线/样品线 → 量产验证”的临界区。真正稀缺的不是玻璃原片，而是跨越材料、TGV、金属化、RDL、检测、可靠性和 AI/HPC 客户验证的系统能力。</div>
+
+  <h3>1. 产业链图</h3>
+  <div class="flow">
+    <div class="flow-row">
+      <div class="node">Glass Core</div><div class="arrow">→</div>
+      <div class="node">材料</div><div class="arrow">→</div>
+      <div class="node">工艺</div><div class="arrow">→</div>
+      <div class="node">设备</div><div class="arrow">→</div>
+      <div class="node">先进封装</div><div class="arrow">→</div>
+      <div class="node hot">AI GPU / ASIC</div><div class="arrow">→</div>
+      <div class="node hot">AI Server</div>
+    </div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card"><span class="tag">JKT 第一梯队</span><h3>生态型优势</h3><p>日本掌握特种玻璃、化学材料、精密设备；韩国加速把玻璃芯材料与 FC-BGA 载板能力闭环；台湾拥有先进封装与高端客户验证场景。最新信号是三星电机与住友化学子公司在 2026 年 7 月签署玻璃芯合资协议。</p></div>
+    <div class="card"><span class="tag">US 第二梯队</span><h3>路线定义型优势</h3><p>Intel 用 AI/HPC 大封装需求定义技术目标；美国通过 CHIPS/NAPMP 直接资助 Absolics 玻璃芯生态，并依托 Onto、Applied 等设备/工艺控制能力建立本土先进封装体系。</p></div>
+    <div class="card"><span class="tag">CN 第三梯队</span><h3>制造追赶型优势</h3><p>显示玻璃、精密加工、激光、湿法、电镀和面板搬运具有可迁移基础；但半导体级大板良率、超细 RDL、可靠性数据库和 AI 客户量产认证仍是核心 Gap。</p></div>
+  </div>
+
+  <h3 style="margin-top:22px">2. 国家/区域能力矩阵（5 = 强）</h3>
+  <div class="table-wrap">
+    <table class="matrix">
+      <thead><tr><th>能力维度</th><th>日本</th><th>韩国</th><th>台湾</th><th>美国</th><th>中国</th><th>判断</th></tr></thead>
+      <tbody>
+        <tr><td>特种玻璃配方/大板成形</td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td><span class="score s2">2</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>日本最强；美国 Corning 强；中国显示玻璃基础强但封装专用资格化不足</td></tr>
+        <tr><td>TGV 高密度加工</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td>技术路线分化：激光改质+蚀刻 vs CO₂ 直钻</td></tr>
+        <tr><td>封装载板 / FC-BGA</td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s3">3</span></td><td><span class="score s3">3</span></td><td>JKT 的既有载板生态是最大护城河</td></tr>
+        <tr><td>先进封装客户验证</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>美国定义需求，台湾承接顶级量产场景</td></tr>
+        <tr><td>半导体材料/化学品</td><td><span class="score s5">5</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>玻璃芯不是单材料赛道，化学体系决定良率</td></tr>
+        <tr><td>Panel 级设备与检测</td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s4">4</span></td><td><span class="score s5">5</span></td><td><span class="score s3">3</span></td><td>美国/欧洲设备商在光刻、检测、薄膜沉积关键</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:22px">3. 全球供应商矩阵</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>环节</th><th>日韩台代表</th><th>美国/欧洲代表</th><th>中国代表/基础</th><th>产业判断</th></tr></thead>
+      <tbody>
+        <tr><td>玻璃材料</td><td>AGC、NEG、Sumitomo Chemical/Dongwoo、HOYA 等</td><td>Corning、SCHOTT</td><td>显示/特种玻璃企业、科研院所；封装专用资格化在追赶</td><td>配方只是起点，CTE/TTV/强度与 TGV 适配才是产品</td></tr>
+        <tr><td>TGV / Glass Core</td><td>Samsung Electro-Mechanics、DNP、TOPPAN、NEG、Absolics(SK 系)</td><td>Intel 生态、LPKF（德）、3D Glass Solutions 等</td><td>沃格/通格微、云天、三叠纪、京东方相关布局等</td><td>2026 的主战场是样品验证与量产良率</td></tr>
+        <tr><td>化学材料</td><td>Ajinomoto、TOK、JSR、Resonac、Soulbrain 等</td><td>DuPont/Qnity、Entegris、Atotech/MKS</td><td>光刻胶、湿化学、铜电镀国产体系快速补位</td><td>Glass-specific formulation 是真正 Gap</td></tr>
+        <tr><td>设备</td><td>SCREEN、ULVAC、Canon、EBARA、E&R 等</td><td>Onto、Applied、LPKF、Evatec、Atotech</td><td>德龙激光、大族激光、湿法/电镀/自动化本土厂商</td><td>Panel 兼容与玻璃脆性控制是再洗牌窗口</td></tr>
+        <tr><td>封装/终端</td><td>TSMC、ASE、Samsung、Ibiden、Shinko 等</td><td>Intel、AMD/NVIDIA 需求生态、Amkor</td><td>头部 AI 芯片、OSAT、载板厂进入验证窗口</td><td>谁拿到 test vehicle 和 reliability data，谁先形成壁垒</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:22px">4. 产业链价值分布（战略重要度估算）</h3>
+  <div class="barlist">
+    <div class="barline"><span>客户验证 / 可靠性</span><div class="bar"><i style="width:95%"></i></div><b>95</b></div>
+    <div class="barline"><span>TGV + 金属化良率</span><div class="bar"><i style="width:92%"></i></div><b>92</b></div>
+    <div class="barline"><span>细线 RDL / Overlay</span><div class="bar"><i style="width:90%"></i></div><b>90</b></div>
+    <div class="barline"><span>Panel 设备 / 检测</span><div class="bar"><i style="width:86%"></i></div><b>86</b></div>
+    <div class="barline"><span>玻璃材料配方</span><div class="bar"><i style="width:82%"></i></div><b>82</b></div>
+    <div class="barline"><span>普通玻璃精加工</span><div class="bar"><i style="width:55%"></i></div><b>55</b></div>
+  </div>
+  <p class="small">注：以上为战略重要度评分，不是市场份额或毛利率统计。</p>
+</section>
+
+<section id="p2" class="page">
+  <div class="page-head">
+    <div class="page-no">P2</div>
+    <div class="page-title"><h2>材料体系分析</h2><p>核心问题：哪些材料是真正的瓶颈，玻璃芯是否会“替代”现有材料体系？</p></div>
+  </div>
+  <div class="key">Key Takeaway：Glass Core 不是“用玻璃替掉 ABF”这么简单。近中期最可能的主流形态是 <b>玻璃芯 + 有机 Build-up / RDL 的混合结构</b>；因此真正机会来自界面、附着、CTE 匹配、低损耗和大板均匀性，而不是单一玻璃原片。</div>
+  <div class="legend"><span><b>Benchmark</b>：公开规格或规划目标</span><span><b>规划 Benchmark</b>：用于战略规划的目标带，非统一标准</span></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>材料</th><th>Benchmark</th><th>KPI</th><th>龙头企业</th><th>日韩台</th><th>美国</th><th>中国</th><th>中国 Gap</th><th>五年机会</th><th>中国建议</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Glass Substrate</strong><br>Low CTE / UTG / Alkali-free / Borosilicate</td>
+          <td>公开：AGC CTE 约 3–8 ppm/°C；Corning 载体玻璃组合 3.2–12.4 ppm/°C；大板 510×515 / 600×600 mm 已进入产业工具链。<br><span class="conf">公开 Benchmark</span></td>
+          <td>CTE 与均匀性、TTV、Bow/Warpage、Ra、强度、介电损耗、耐化学、激光改质选择比</td>
+          <td>AGC、NEG、Corning、SCHOTT、HOYA 等</td>
+          <td>日本材料配方+大板成形最强；韩国通过玻璃芯 JV 补关键材料闭环</td>
+          <td>Corning 强在可调 CTE、平整度和 Panel carrier；Intel 定义应用</td>
+          <td>显示玻璃/精加工基础强，部分企业进入 TGV/先进封装验证</td>
+          <td>封装专用玻璃 composition IP、超低缺陷大板、TGV 适配、批次一致性</td>
+          <td>AI 大封装、Panel-level、CPO、嵌入无源</td>
+          <td>优先做“玻璃+TGV+金属化”的联合材料平台，不单独卖原片</td>
+        </tr>
+        <tr>
+          <td><strong>Photoresist</strong><br>PR / Developer / Stripper / ARC</td>
+          <td>规划：近中期量产争夺 5/5 μm 级 RDL；2–5 μm 已有公开研究示范，Sub-μm 属前沿研发。<br><span class="conf">规划 Benchmark</span></td>
+          <td>Resolution、CDU、DOF、玻璃/金属附着、耐电镀、残胶、Panel 涂布均匀性</td>
+          <td>TOK、JSR、DuPont/Qnity 等</td>
+          <td>日本光刻胶+高纯化学品生态强，且已参与下一代封装联盟</td>
+          <td>DuPont/Qnity 覆盖 RDL、bump、介电材料</td>
+          <td>中低端替代快，先进封装厚膜/大板均匀性在追赶</td>
+          <td>Glass-specific adhesion、厚膜解析度、Panel CDU、低残留</td>
+          <td>大板涂布、低翘曲低温固化、2–5 μm RDL 配套</td>
+          <td>与曝光/电镀设备共开发，不做孤立材料认证</td>
+        </tr>
+        <tr>
+          <td><strong>Copper Material</strong><br>Seed / Plating / Barrier</td>
+          <td>规划：Conformal 与 Filled TGV 双路线；高深宽比下 void-free、低应力、厚度均匀是核心。<br><span class="conf">规划 Benchmark</span></td>
+          <td>Seed continuity、adhesion、via fill void、WIW/WIP uniformity、stress、resistivity</td>
+          <td>Atotech/MKS、DuPont/Qnity、JCU、Uyemura 等</td>
+          <td>日韩湿化学和载板电镀 know-how 深</td>
+          <td>美系化学/设备协同强</td>
+          <td>电镀产业链成熟，先进 TGV 深孔填充有追赶窗口</td>
+          <td>玻璃附着、无空洞高 AR、低应力、Panel 均匀性</td>
+          <td>TGV metallization 是最可形成国产壁垒的环节之一</td>
+          <td>设立“孔型×药水×波形×设备”联合 DOE 数据库</td>
+        </tr>
+        <tr>
+          <td><strong>CMP Material</strong><br>Slurry / Pad / Conditioner</td>
+          <td>规划：铜/阻挡层选择比、低 dishing/erosion、Panel 内平坦化。<br><span class="conf">规划 Benchmark</span></td>
+          <td>RR、Selectivity、Dishing、Erosion、Ra、NU、Defectivity</td>
+          <td>Fujimi、Resonac、AGC、DuPont、Entegris 等</td>
+          <td>日本浆料/抛光材料积累深</td>
+          <td>材料+设备+终点检测强</td>
+          <td>CMP 材料已有产业基础</td>
+          <td>玻璃大板边缘效应、低缺陷 Cu reveal、翘曲耦合</td>
+          <td>Panel CMP 专用 slurry/pad、低应力平坦化</td>
+          <td>优先绑定 TGV Cu fill 客户，做一体化 post-plate CMP</td>
+        </tr>
+        <tr>
+          <td><strong>Dielectric</strong><br>PI / Low-Dk / EMC / Dry Film</td>
+          <td>规划：低 Dk/Df、低温固化、Cu/Glass 高附着、低吸湿；兼顾 2–5 μm RDL。<br><span class="conf">规划 Benchmark</span></td>
+          <td>Dk/Df、Tg、CTE、Moisture、Adhesion、Crack、Cure temp</td>
+          <td>JSR、DuPont/Qnity、Resonac、Hitachi 系等</td>
+          <td>日本有机材料+载板协同强</td>
+          <td>先进封装介电组合完整</td>
+          <td>PI/EMC/干膜供应链较全</td>
+          <td>高频低损耗、玻璃界面可靠性、低温与大板固化均匀性</td>
+          <td>CPO/高速 SerDes、混合玻璃芯结构</td>
+          <td>把“低 Dk”升级为“低损耗+低应力+高附着”三目标优化</td>
+        </tr>
+        <tr>
+          <td><strong>ABF</strong><br>Ajinomoto Build-up Film</td>
+          <td>公开：Ajinomoto 将 ABF 定义为高性能封装基板关键绝缘材料，市场地位接近事实标准。<br><span class="conf">公开 Benchmark</span></td>
+          <td>Fine-line support、roughness、adhesion、Df、CTE、laser via、CAF/reliability</td>
+          <td>Ajinomoto Fine-Techno</td>
+          <td>日本拥有关键材料控制力</td>
+          <td>需求端/封装架构定义强</td>
+          <td>高端 Build-up 膜仍需提升</td>
+          <td>高端材料配方、客户长期认证、细线与低损耗</td>
+          <td><b>玻璃芯 + ABF</b> 混合结构更可能先量产，而非“ABF 消失”</td>
+          <td>不要以替代 ABF 为唯一叙事；优先攻玻璃界面兼容与国产 Build-up 体系</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="p3" class="page">
+  <div class="page-head">
+    <div class="page-no">P3</div>
+    <div class="page-title"><h2>工艺体系分析</h2><p>核心问题：Glass Core 真正卡在哪些工艺，哪个步骤决定量产成败？</p></div>
+  </div>
+  <div class="key">Key Takeaway：量产瓶颈不是单一 TGV 打孔，而是 <b>孔形成 → 清洗/活化 → Seed 连续性 → 深孔铜填充 → CMP → 细线 RDL → 大板检测</b> 的累积良率。Glass Core 的“摩尔定律”首先是良率乘法。</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>工艺</th><th>Benchmark</th><th>KPI</th><th>龙头/代表</th><th>日韩台</th><th>美国</th><th>中国</th><th>中国 Gap</th><th>五年机会</th><th>中国建议</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Glass Preparation</strong></td><td>510×515 / 600×600 mm 大板进入公开产业路线</td><td>TTV、Bow、edge strength、particle</td><td>AGC、NEG、Corning</td><td>★★★★★</td><td>★★★★</td><td>★★★</td><td>封装级缺陷密度/批次一致性</td><td>大板标准化</td><td>建立 incoming glass spec 与 traceability</td></tr>
+        <tr><td><strong>Glass Thinning</strong></td><td>应用依赖；公开玻璃产品厚度可覆盖约 0.2–2 mm</td><td>厚度、TTV、micro-crack、strength</td><td>DISCO/研削生态、玻璃厂</td><td>★★★★★</td><td>★★★★</td><td>★★★★</td><td>薄化后强度与边缘缺陷</td><td>薄型芯/载体</td><td>薄化+边缘强化一体化</td></tr>
+        <tr><td><strong>Glass Cleaning</strong></td><td>规划：微米级粒子零容忍趋势</td><td>particle、ionic、organic residue</td><td>SCREEN、TEL、ACM 等</td><td>★★★★★</td><td>★★★★</td><td>★★★★</td><td>大板均匀性与低损伤</td><td>Panel 清洗</td><td>先做国产设备+药液联调</td></tr>
+        <tr><td><strong>Laser Modification</strong></td><td>细孔/窄 pitch 优势；LPKF LIDE 已进入 HVM 协作生态</td><td>modified zone、throughput、crack、selectivity</td><td>LPKF、E&R、TRUMPF 等</td><td>★★★★</td><td>★★★★</td><td>★★★</td><td>高吞吐+低缺陷兼得</td><td>高密度 TGV</td><td>把光学、运动、蚀刻一起优化</td></tr>
+        <tr><td><strong>TGV Formation</strong></td><td>两主线：Laser modification+etch；CO₂ direct drill</td><td>diameter、pitch、AR、taper、crack、holes/s</td><td>LPKF；NEG 双路线；多家设备商</td><td>★★★★★</td><td>★★★★</td><td>★★★</td><td>HVM throughput 与 defect ppm</td><td>路线并存</td><td>不要押单路线，建立双工艺 test vehicle</td></tr>
+        <tr><td><strong>Desmear / Activation</strong></td><td>规划：无残留、低玻璃损伤</td><td>residue、roughness、surface chemistry</td><td>Atotech、JCU、湿法生态</td><td>★★★★★</td><td>★★★★</td><td>★★★★</td><td>玻璃界面专用 chemistry</td><td>高附着 seed</td><td>重点做 surface chemistry IP</td></tr>
+        <tr><td><strong>Seed Layer</strong></td><td>规划：PVD/Sputter + electroless/activation 组合</td><td>coverage、adhesion、continuity、stress</td><td>Evatec、ULVAC、Applied</td><td>★★★★</td><td>★★★★★</td><td>★★★</td><td>高 AR sidewall 连续性</td><td>ALD/advanced seed</td><td>发展薄种子+高覆盖替代路线</td></tr>
+        <tr><td><strong>Copper Plating</strong></td><td>Filled / conformal 双路线已公开</td><td>void、seam、uniformity、stress、fill time</td><td>Atotech、DuPont/Qnity、JCU</td><td>★★★★★</td><td>★★★★★</td><td>★★★★</td><td>高 AR + Panel 均匀</td><td>最大国产机会之一</td><td>药水-波形-夹具-流场联合优化</td></tr>
+        <tr><td><strong>CMP</strong></td><td>规划：低 dishing/erosion 的 Cu reveal</td><td>planarity、defect、RR、NU</td><td>EBARA、Applied、Fujimi</td><td>★★★★★</td><td>★★★★★</td><td>★★★</td><td>大板 CMP 与边缘控制</td><td>Panel 平坦化</td><td>先在小板/wafer 跑通再扩 Panel</td></tr>
+        <tr><td><strong>RDL</strong></td><td>公开研究示范 2–5 μm；近中期量产争夺 5/5 μm 级</td><td>L/S、overlay、CDU、open/short</td><td>Onto、Canon、材料商</td><td>★★★★★</td><td>★★★★★</td><td>★★★</td><td>Panel overlay / resist / seed etch</td><td>2–5 μm 工业化</td><td>以 adaptive lithography+AOI 做闭环</td></tr>
+        <tr><td><strong>Dielectric Coating</strong></td><td>规划：低温、低应力、Panel 均匀</td><td>thickness NU、void、adhesion、cure shrink</td><td>Toray Eng.、材料/涂布生态</td><td>★★★★★</td><td>★★★★</td><td>★★★</td><td>大板涂布/固化翘曲</td><td>低 Dk dry film</td><td>设备+材料联合开发</td></tr>
+        <tr><td><strong>Bump Formation</strong></td><td>应用依赖：Cu pillar / solder bump / hybrid integration</td><td>pitch、height NU、coplanarity</td><td>OSAT/IDM 工艺平台</td><td>★★★★★</td><td>★★★★★</td><td>★★★★</td><td>与玻璃 RDL 可靠性耦合</td><td>Chiplet assembly</td><td>以 AI test vehicle 验证</td></tr>
+        <tr><td><strong>Inspection</strong></td><td>Onto Firefly G3：sub-micron AOI + 3D metrology（产品口径）</td><td>capture rate、false call、TGV 3D、throughput</td><td>Onto、KLA、Camtek</td><td>★★★★</td><td>★★★★★</td><td>★★★</td><td>内部孔缺陷/大板高速检测</td><td>最确定设备机会</td><td>优先投资 inline metrology</td></tr>
+        <tr><td><strong>Reliability</strong></td><td>JEDEC 类热循环/HAST + Glass-specific crack/edge test</td><td>TCT、HAST、CAF、drop/bend、warpage drift</td><td>IDM/OSAT/研究机构</td><td>★★★★★</td><td>★★★★★</td><td>★★★</td><td>长期数据库与失效模型</td><td>标准定义权</td><td>建立国家级 test vehicle & failure library</td></tr>
+        <tr><td><strong>Final Test</strong></td><td>Electrical continuity + SI/PI + package reliability</td><td>open/short、R、loss、yield、test time</td><td>Advantest、Teradyne、OSAT</td><td>★★★★★</td><td>★★★★★</td><td>★★★★</td><td>Glass-specific correlation</td><td>数字化良率闭环</td><td>把 test data 回灌前工序</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="p4" class="page">
+  <div class="page-head">
+    <div class="page-no">P4</div>
+    <div class="page-title"><h2>设备体系分析</h2><p>核心问题：哪些设备最可能形成新一轮卡位与国产替代？</p></div>
+  </div>
+  <div class="key">Key Takeaway：Glass Core 给设备行业带来的最大变化是 <b>从 300 mm wafer 思维转向 510×515 / 600×600 / 650×650 mm Panel 思维</b>。最值得下注的不是所有设备，而是 TGV、Panel 光刻、PVD/Seed、深孔电镀、AOI/3D Metrology、Warpage 与自动搬运。</div>
+  <p class="small">Installed Base 公开精确台数普遍不可得，以下采用“Wafer 成熟 / Panel 已量产应用 / Glass-specific 新兴”的成熟度口径。</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>设备</th><th>对应工艺</th><th>Benchmark / KPI</th><th>龙头企业</th><th>Installed Base 成熟度</th><th>日韩台</th><th>美国/欧洲</th><th>中国</th><th>中国 Gap</th><th>国产机会</th><th>中国建议</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Laser Drilling</strong></td><td>TGV</td><td>孔径/锥度、crack、holes/s、AR</td><td>TRUMPF、E&R、日系激光生态</td><td><span class="status st-pilot">Glass 新兴</span></td><td>强</td><td>强</td><td>德龙/大族等进入</td><td>HVM defect & throughput</td><td>★★★★★</td><td>优先绑定蚀刻/检测形成整线</td></tr>
+        <tr><td><strong>Laser Modification</strong></td><td>改质+蚀刻 TGV</td><td>改质选择性、吞吐、低损伤</td><td>LPKF LIDE、E&R 等</td><td><span class="status st-pilot">导入中</span></td><td>强</td><td>强</td><td>追赶</td><td>核心光学/工艺窗口</td><td>★★★★★</td><td>做国产 beam shaping + motion control</td></tr>
+        <tr><td><strong>Wet Etching</strong></td><td>TGV / seed etch</td><td>selectivity、uniformity、surface damage</td><td>SCREEN、Atotech、定制湿法</td><td><span class="status st-hvm">湿法成熟</span></td><td>很强</td><td>强</td><td>较强</td><td>Glass-specific chemistry/Panel 均匀</td><td>★★★★</td><td>药液+喷淋流场协同</td></tr>
+        <tr><td><strong>Dry Etching</strong></td><td>Barrier / fine pattern</td><td>etch rate、selectivity、damage</td><td>Lam、Applied、TEL</td><td><span class="status st-hvm">Wafer 成熟</span></td><td>强</td><td>很强</td><td>追赶</td><td>大板平台与高端腔体</td><td>★★★</td><td>先聚焦封装而非前道最尖端</td></tr>
+        <tr><td><strong>PVD</strong></td><td>Seed / barrier</td><td>sidewall coverage、adhesion、NU</td><td>Evatec、ULVAC、Applied</td><td><span class="status st-pilot">Panel 成熟度上升</span></td><td>强</td><td>很强</td><td>追赶</td><td>650 mm 级均匀性</td><td>★★★★</td><td>从小 Panel 切入</td></tr>
+        <tr><td><strong>Sputter</strong></td><td>Cu/Ti/Cr seed</td><td>thickness NU、stress、particle</td><td>Evatec CLUSTERLINE、ULVAC</td><td><span class="status st-pilot">Panel 可用</span></td><td>强</td><td>强</td><td>中</td><td>大板高覆盖/低应力</td><td>★★★★</td><td>与 TGV 侧壁覆盖联合验证</td></tr>
+        <tr><td><strong>Electro Plating</strong></td><td>TGV fill / RDL</td><td>void-free、uniformity、current density</td><td>Atotech MultiPlate、Applied、JCU</td><td><span class="status st-hvm">Panel 已有平台</span></td><td>很强</td><td>很强</td><td>较强</td><td>高 AR + 玻璃夹持</td><td>★★★★★</td><td>最优先国产突破</td></tr>
+        <tr><td><strong>CMP</strong></td><td>Cu reveal / planarization</td><td>dishing、erosion、NU、defect</td><td>EBARA、Applied</td><td><span class="status st-hvm">Wafer 成熟</span></td><td>很强</td><td>很强</td><td>中</td><td>大板 pressure control</td><td>★★★★</td><td>发展 Panel 特化 head/pad</td></tr>
+        <tr><td><strong>Lithography</strong></td><td>RDL</td><td>5/5 μm→2–5 μm、overlay、DOF</td><td>Onto JetStep、Canon、SUSS</td><td><span class="status st-pilot">Panel 导入</span></td><td>很强</td><td>很强</td><td>追赶</td><td>adaptive overlay / 大板 distortion map</td><td>★★★★</td><td>先做封装级直写/曝光</td></tr>
+        <tr><td><strong>Exposure</strong></td><td>PR patterning</td><td>field size、resolution、throughput</td><td>Onto、Canon、Ushio</td><td><span class="status st-pilot">Panel 新兴</span></td><td>强</td><td>强</td><td>中</td><td>大视场与 distortion correction</td><td>★★★★</td><td>与 AOI 联动</td></tr>
+        <tr><td><strong>AOI</strong></td><td>RDL / TGV</td><td>sub-μm detection、3D、false call</td><td>Onto Firefly、KLA、Camtek</td><td><span class="status st-hvm">先进封装成熟</span></td><td>强</td><td>很强</td><td>中</td><td>算法/光学/高速大板</td><td>★★★★★</td><td>优先做 inline + AI defect classification</td></tr>
+        <tr><td><strong>X-Ray Inspection</strong></td><td>Cu fill / bump</td><td>void、3D CT、resolution、throughput</td><td>Nordson DAGE、YXLON、Bruker</td><td><span class="status st-hvm">成熟</span></td><td>强</td><td>强</td><td>较强</td><td>高速 inline CT</td><td>★★★★</td><td>聚焦 TGV void 定量</td></tr>
+        <tr><td><strong>Warpage Inspection</strong></td><td>全流程</td><td>μm-scale map、thermal warpage</td><td>Akrometrix、Onto 等</td><td><span class="status st-hvm">成熟但需扩板</span></td><td>强</td><td>很强</td><td>中</td><td>600 mm 热态测量</td><td>★★★★★</td><td>低成本大板在线测量</td></tr>
+        <tr><td><strong>Stress Measurement</strong></td><td>玻璃/薄膜/Cu</td><td>residual stress、map、crack risk</td><td>Bruker、KLA、Raman/光学生态</td><td><span class="status st-pilot">Glass-specific 新兴</span></td><td>强</td><td>强</td><td>中</td><td>多层应力反演模型</td><td>★★★★</td><td>做 process digital twin 输入</td></tr>
+        <tr><td><strong>Cleaning</strong></td><td>各湿法步骤</td><td>particle、damage、dry mark</td><td>SCREEN、TEL、ACM</td><td><span class="status st-hvm">成熟</span></td><td>很强</td><td>强</td><td>较强</td><td>大板低损伤</td><td>★★★★</td><td>可快速国产化</td></tr>
+        <tr><td><strong>Automation</strong></td><td>Factory integration</td><td>OEE、breakage、traceability</td><td>Brooks、Hirata、Yaskawa 等</td><td><span class="status st-hvm">成熟，玻璃需定制</span></td><td>很强</td><td>强</td><td>很强</td><td>脆性材料 MCS/AMHS 经验</td><td>★★★★★</td><td>中国可形成成本/交付优势</td></tr>
+        <tr><td><strong>Panel Handling</strong></td><td>全流程搬运</td><td>breakage ppm、edge contact、flatness support</td><td>设备整线商/机器人厂</td><td><span class="status st-pilot">关键新兴</span></td><td>强</td><td>强</td><td>较强</td><td>超薄大板无损夹持</td><td>★★★★★</td><td>以显示面板经验迁移封装</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="p5" class="page">
+  <div class="page-head">
+    <div class="page-no">P5</div>
+    <div class="page-title"><h2>全球竞争格局</h2><p>核心问题：为什么首先在日韩台形成？美国如何定义方向？中国到底处于什么位置？</p></div>
+  </div>
+  <div class="key">Key Takeaway：全球竞争不是“三个地区同时做同一件事”。<b>日韩台负责把产业链做成，美国负责把需求和架构定义清楚，中国的机会在于把大规模制造、设备国产化和成本工程做出来。</b></div>
+
+  <div class="grid g3">
+    <div class="card">
+      <span class="tag">第一梯队 JKT</span><h3>为什么先形成？</h3>
+      <p><b>日本：</b>特种玻璃、光刻胶、CMP、ABF、精密设备；NEG 已公开 515×510 mm TGV 大板样品路线，DNP 2025 年底启用 pilot line 并计划 2026 年初送样，TOPPAN 计划 2026 年 7 月投运先进封装 pilot line。</p>
+      <p style="margin-top:8px"><b>韩国：</b>FC-BGA 与大客户协同；Samsung Electro-Mechanics 公开目标 2027 年量产，并在 2026-07-02 与 Sumitomo Chemical 子公司签署 Glass Core JV 协议。</p>
+      <p style="margin-top:8px"><b>台湾：</b>顶级先进封装与客户验证场景是核心价值，设备商也在 TGV/Panel 工艺布局。</p>
+    </div>
+    <div class="card">
+      <span class="tag">第二梯队 US</span><h3>如何定义路线？</h3>
+      <p><b>Intel：</b>公开给出玻璃相对有机基板可实现 50% 更低 pattern distortion、潜在 10× interconnect density，并把首批应用锁定数据中心、AI、图形等大尺寸高速封装。</p>
+      <p style="margin-top:8px"><b>政策：</b>CHIPS NAPMP 2025 年宣布向 Absolics、Applied Materials、ASU 各 1 亿美元项目支持，其中 Absolics 项目明确用于构建 glass-core packaging ecosystem。</p>
+      <p style="margin-top:8px"><b>设备：</b>Onto、Applied 等掌握 process control / lithography / metrology 关键能力。</p>
+    </div>
+    <div class="card">
+      <span class="tag">第三梯队 CN</span><h3>当前真实位置</h3>
+      <p><b>优势：</b>显示玻璃大板、脆性材料加工、激光、湿法、电镀、自动化、面板搬运具备迁移条件；国内已形成 TGV 产业联盟和多家样品/中试布局。</p>
+      <p style="margin-top:8px"><b>现实：</b>公开证据更多集中在“试验线、送样、客户验证、政策支持”，尚不足以证明 AI/HPC Glass Core 已形成广泛 HVM。</p>
+      <p style="margin-top:8px"><b>核心 Gap：</b>长期可靠性数据、先进 RDL overlay、深孔金属化良率、量产设备协同、国际头部客户认证。</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:22px">竞争力拆解</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>维度</th><th>JKT</th><th>US</th><th>CN</th><th>战略判断</th></tr></thead>
+      <tbody>
+        <tr><td>路线定义</td><td>★★★★</td><td>★★★★★</td><td>★★★</td><td>美国由 AI/HPC 架构反推 substrate spec</td></tr>
+        <tr><td>材料体系</td><td>★★★★★</td><td>★★★★</td><td>★★★</td><td>日本材料组合最完整</td></tr>
+        <tr><td>精密制造</td><td>★★★★★</td><td>★★★★</td><td>★★★★</td><td>中国具备追赶基础，但封装级数据不足</td></tr>
+        <tr><td>先进封装生态</td><td>★★★★★</td><td>★★★★</td><td>★★★</td><td>日韩台有载板/OSAT/Foundry 协同</td></tr>
+        <tr><td>设备/Process Control</td><td>★★★★</td><td>★★★★★</td><td>★★★</td><td>美国+欧洲设备商是隐形关键</td></tr>
+        <tr><td>规模成本工程</td><td>★★★★</td><td>★★★</td><td>★★★★★</td><td>中国最大潜在反击点</td></tr>
+        <tr><td>客户验证</td><td>★★★★★</td><td>★★★★★</td><td>★★★</td><td>验证周期决定商业化速度</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout" style="margin-top:18px">
+    <h3>产业拐点判断</h3>
+    <p>从公开路线看，Intel 仍以“本十年后半段”导入为口径；Samsung Electro-Mechanics 公开瞄准 2027；NEG 与 DNP 公开瞄准 2028 级量产准备。因此更稳健的判断是：<b>2026 = pilot/qualification acceleration，2027–2029 = first HVM window</b>，而不是“2026 全行业大规模量产”。</p>
+  </div>
+</section>
+
+<section id="p6" class="page">
+  <div class="page-head">
+    <div class="page-no">P6</div>
+    <div class="page-title"><h2>未来技术路线</h2><p>核心问题：未来五年 Glass Core 会沿哪几条路线演进？</p></div>
+  </div>
+  <div class="key">Key Takeaway：未来五年的主线不是“全玻璃替代一切”，而是从 <b>Glass Core + Organic Build-up</b> 起步，逐步走向大 Panel、细 RDL、光电共封装与系统级封装。Glass 的真正驱动力是 Package Size Expansion。</div>
+
+  <h3>1. 五条路线</h3>
+  <div class="grid g3">
+    <div class="card"><span class="tag">Route A · 最可能先量产</span><h3>Glass Core + ABF Build-up</h3><p>用玻璃解决刚性、平整度、尺寸稳定性；保留成熟有机 build-up 做细线与多层。<br><b>判断：</b>近中期主航道。</p></div>
+    <div class="card"><span class="tag">Route B</span><h3>Glass Interposer + Organic Substrate</h3><p>Glass 先替代部分 silicon interposer / large-area interposer 功能。<br><b>判断：</b>适合大尺寸与成本敏感场景。</p></div>
+    <div class="card"><span class="tag">Route C</span><h3>Panel-Level Glass</h3><p>510×515、600×600、650×650 mm 工具链逐步成熟。<br><b>判断：</b>决定成本曲线，但也是良率最难点。</p></div>
+    <div class="card"><span class="tag">Route D</span><h3>CPO / Optical Integration</h3><p>利用玻璃电学、光学与尺寸稳定性，承接光引擎、无源器件、低损耗互连。<br><b>判断：</b>高战略价值。</p></div>
+    <div class="card"><span class="tag">Route E · 远期</span><h3>System-on-Glass / All-Glass</h3><p>更大系统边界、更高集成度，但材料界面、组装、返修与可靠性风险高。<br><b>判断：</b>先研发，不宜过早量产下注。</p></div>
+    <div class="card"><span class="tag">路线竞争</span><h3>TGV 工艺双路线长期共存</h3><p>Laser modification + etch 追求小孔/窄 pitch；CO₂ direct drill 追求步骤少和吞吐。NEG 已公开同时覆盖两条路线。</p></div>
+  </div>
+
+  <h3 style="margin-top:22px">2. 时间路线图</h3>
+  <div class="timeline">
+    <div class="phase"><div class="yr">2026–2027</div><h3>Qualification</h3><ul><li>样品线/pilot line 加速</li><li>AI/HPC test vehicle</li><li>TGV 良率、可靠性筛选</li><li>Glass core supply chain JV</li></ul></div>
+    <div class="phase"><div class="yr">2027–2028</div><h3>First HVM</h3><ul><li>高端 AI/HPC 小规模量产</li><li>Glass core + organic build-up</li><li>Panel 工具链定型</li><li>首批 qualified vendor list</li></ul></div>
+    <div class="phase"><div class="yr">2028–2030</div><h3>Scale</h3><ul><li>大 Panel 经济性显现</li><li>2–5 μm RDL 工业化推进</li><li>CPO/光电协同</li><li>设备 installed base 扩大</li></ul></div>
+    <div class="phase"><div class="yr">2030+</div><h3>System Boundary Shift</h3><ul><li>Package becomes System</li><li>超大尺寸异构集成</li><li>嵌入无源/光学</li><li>更高层级系统制造</li></ul></div>
+  </div>
+
+  <h3 style="margin-top:22px">3. 五年关键 Benchmark 路线（规划值）</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>指标</th><th>2026 基线</th><th>2028 竞争点</th><th>2030 方向</th><th>最大风险</th></tr></thead>
+      <tbody>
+        <tr><td>Panel size</td><td>510×515 mm 样品/工具链；600×600 mm 路线</td><td>600 mm 级稳定量产</td><td>更大面积/高利用率</td><td class="risk">累计良率与搬运破片</td></tr>
+        <tr><td>TGV</td><td>双路线并行</td><td>小孔/高 AR 与高吞吐兼得</td><td>更高密度、更低 defect ppm</td><td class="risk">微裂纹/金属化空洞</td></tr>
+        <tr><td>RDL L/S</td><td>5/5 μm 级量产争夺；2–5 μm 研究示范</td><td>2–5 μm 工业化</td><td>向更细间距推进</td><td class="risk">Panel distortion/overlay</td></tr>
+        <tr><td>Warpage</td><td>玻璃天然优势但多层后重新出现</td><td>热态全流程 map</td><td>数字孪生闭环</td><td class="risk">Cu/Dielectric 应力再引入</td></tr>
+        <tr><td>Cost</td><td>pilot 高成本</td><td>Panel throughput 驱动下降</td><td>对高端 organic/silicon 形成结构性竞争</td><td class="risk">良率吃掉面积红利</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="p7" class="page">
+  <div class="page-head">
+    <div class="page-no">P7</div>
+    <div class="page-title"><h2>中国企业建议</h2><p>核心问题：未来中国最值得突破哪些方向，如何避免低水平重复投资？</p></div>
+  </div>
+  <div class="key">Key Takeaway：中国不应把 Glass Core 定义为“再建一条玻璃线”，而应定义为 <b>先进封装制造平台争夺战</b>。最优策略不是全链条平均用力，而是优先攻下 5 个可形成系统壁垒的战场。</div>
+
+  <h3>1. 五大战场优先级</h3>
+  <div class="grid g3">
+    <div class="card"><span class="tag">S</span><h3>大板 AOI / 3D Metrology / Warpage</h3><p>理由：所有路线都需要，且 HVM 必须 inline。<br><b>KPI：</b>sub-μm defect capture、TGV 3D、600 mm map、低 false call。</p></div>
+    <div class="card"><span class="tag">S</span><h3>TGV + Metallization 联合平台</h3><p>理由：单独打孔没有壁垒，孔形成到无空洞铜填充才是产品。<br><b>KPI：</b>AR、void ppm、throughput、crack、uniformity。</p></div>
+    <div class="card"><span class="tag">S</span><h3>Hybrid Glass + ABF / RDL</h3><p>理由：最接近首批量产结构。<br><b>KPI：</b>adhesion、2–5 μm roadmap、warpage、TCT/HAST。</p></div>
+    <div class="card"><span class="tag">A+</span><h3>Panel 级 PVD / Plating / Handling</h3><p>理由：中国具备装备制造与自动化迁移优势。<br><b>KPI：</b>600 mm uniformity、breakage ppm、OEE。</p></div>
+    <div class="card"><span class="tag">A+</span><h3>Reliability Test Vehicle & Standard</h3><p>理由：没有长期数据就进不了 AI/HPC 供应链。<br><b>KPI：</b>失效库、跨批次 correlation、客户联合认证。</p></div>
+    <div class="card"><span class="tag">A</span><h3>封装专用 Glass Composition</h3><p>理由：长期关键，但不应脱离工艺单独开发。<br><b>KPI：</b>CTE/TTV/strength/laser selectivity/chemical durability。</p></div>
+  </div>
+
+  <h3 style="margin-top:22px">2. 分阶段行动路线</h3>
+  <div class="timeline">
+    <div class="phase"><div class="yr">0–18 个月</div><h3>建立共同 Test Vehicle</h3><ul><li>统一 3 类玻璃</li><li>双 TGV 路线</li><li>Filled/Conformal Cu</li><li>5/5 μm RDL</li><li>形成失效数据库</li></ul></div>
+    <div class="phase"><div class="yr">18–36 个月</div><h3>打穿累计良率</h3><ul><li>从单步良率转向 end-to-end yield</li><li>上线 inline AOI/warpage</li><li>600 mm 级 Panel 验证</li><li>绑定 1–2 家 AI 客户</li></ul></div>
+    <div class="phase"><div class="yr">36–60 个月</div><h3>进入 Qualified Vendor List</h3><ul><li>高端 AI/HPC 量产</li><li>2–5 μm RDL</li><li>CPO/光学场景</li><li>国产设备复制扩产</li></ul></div>
+    <div class="phase"><div class="yr">长期</div><h3>争夺标准与生态</h3><ul><li>Reliability 标准</li><li>Design kit / DFM</li><li>材料-设备-封装联合 IP</li><li>全球客户协同</li></ul></div>
+  </div>
+
+  <h3 style="margin-top:22px">3. 针对不同企业的建议</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>企业类型</th><th>不建议</th><th>建议切入点</th><th>关键 KPI</th><th>合作对象</th></tr></thead>
+      <tbody>
+        <tr><td>玻璃材料企业</td><td>只强调低 CTE / 国产化</td><td>TGV 适配 + surface chemistry + Cu adhesion</td><td>批次稳定、TTV、强度、改质选择比</td><td>设备商、封装厂、AI 客户</td></tr>
+        <tr><td>激光设备企业</td><td>只卖“能打孔”</td><td>孔型+蚀刻+检测闭环</td><td>holes/s、crack、AR、defect ppm</td><td>湿法/检测/玻璃厂</td></tr>
+        <tr><td>湿法/电镀企业</td><td>照搬 PCB 药水</td><td>Glass-specific activation 与高 AR fill</td><td>void、adhesion、uniformity、stress</td><td>TGV 厂、PVD、CMP</td></tr>
+        <tr><td>OSAT / 载板厂</td><td>等待材料成熟后再进入</td><td>主导 test vehicle 与 reliability spec</td><td>end-to-end yield、TCT/HAST、SI/PI</td><td>AI 芯片、材料、设备</td></tr>
+        <tr><td>AI 芯片企业</td><td>仅做供应商询价</td><td>提前定义 package size / warpage / I/O / power spec</td><td>系统功耗、带宽、良率、TCO</td><td>Foundry/OSAT/Glass Core 联盟</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout" style="margin-top:18px">
+    <h3>最终建议：建立“中国 Glass Core 联合验证平台”，而不是再建一个孤立项目</h3>
+    <p>建议以 1 个 AI/HPC test vehicle 为牵引，联合玻璃、激光、湿法、电镀、PVD、光刻、AOI、OSAT 和芯片设计企业；统一材料批次、工艺 DOE、可靠性条件和良率数据模型。<b>真正的战略资产是可复用的制造数据与客户认证，而不是一条单机产线。</b></p>
+  </div>
+</section>
+
+<section id="src" class="page sources">
+  <div class="page-title"><h2>Sources & Evidence Base</h2><p>优先采用企业官方、政府/公共机构、官方产品资料；少量研究综述用于技术 Benchmark。</p></div>
+  <ol>
+    <li><a target="_blank" rel="noopener" href="https://newsroom.intel.com/artificial-intelligence/intel-unveils-industry-leading-glass-substrates">Intel Newsroom — Glass substrates for advanced packaging</a>：10× interconnect density potential、50% less pattern distortion、second half of decade。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.neg.co.jp/en/news/20250522-1.html">Nippon Electric Glass — Large TGV glass core substrates</a>：515×510 mm、laser modification+etch 与 CO₂ laser 双路线、2028 mass-production goal。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.global.dnp/en/news/detail/2025/12/1216_20177773/">DNP — TGV glass core pilot line</a>：2025-12 pilot、2026 early sample shipments、FY2028 HVM structure。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.holdings.toppan.com/en/news/2025/12/newsrelease251216_1.html">TOPPAN — Advanced packaging pilot line</a>：planned commissioning July 2026。</li>
+    <li><a target="_blank" rel="noopener" href="https://m.samsungsem.com/global/newsroom/news/view.do?id=8922">Samsung Electro-Mechanics — CES 2025 press meeting</a>：glass substrate pilot line、mass production target 2027。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.sumitomo-chem.co.jp/english/news/detail/20260702e_2.html">Sumitomo Chemical — 2026-07-02 Glass Core JV agreement</a>：Dongwoo Fine-Chem 与 Samsung Electro-Mechanics。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.commerce.gov/news/press-releases/2025/01/us-department-commerce-announces-14-billion-final-awards-support-next">U.S. Department of Commerce — CHIPS advanced packaging awards</a>：Absolics glass-core ecosystem $100m direct funding。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.absolicsinc.com/">Absolics official</a>：glass substrate platform、Georgia SVM / commercialization roadmap。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.agc.com/en/products/electoric/detail/swan.html">AGC — Semiconductor packaging glass substrate</a>：wafer/panel carrier formats。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.agc.com/en/news/detail/1195115_2814.html">AGC — Glass substrates</a>：CTE 3–8 ppm/°C、0.2–2 mm thickness public product range。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.corning.com/worldwide/en/products/advanced-optics/product-materials/semiconductor-laser-optic-components/semiconductor-glass-wafers.html">Corning — Semiconductor glass wafers</a>：CTE portfolio 3.2–12.4 ppm/°C。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.corning.com/worldwide/en/products/advanced-optics/product-materials/PrecisionGlassSolutions/advanced-packaging-carriers.html">Corning — Advanced packaging carriers</a>：515×510 / 600×600 mm panel formats。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.lpkf.com/en/news-press/press-releases-teaser/onto-innovation-and-lpkf-are-set-to-accelerate-mass-production-of-glass-core-substrates-for-semiconductors">LPKF + Onto — HVM collaboration</a>：LIDE TGV + Firefly inspection。</li>
+    <li><a target="_blank" rel="noopener" href="https://ontoinnovation.com/products/firefly-g3/">Onto Innovation — Firefly G3</a>：advanced substrate / panel AOI & 3D metrology。</li>
+    <li><a target="_blank" rel="noopener" href="https://ontoinnovation.com/family_group/jetstep/">Onto Innovation — JetStep</a>：panel lithography up to 720×600 mm for S3500。</li>
+    <li><a target="_blank" rel="noopener" href="https://evatecnet.com/markets/panel-level-packaging/">Evatec — Panel Level Packaging</a>：thin-film platform up to 650×650 mm。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.atotech.com/products/electronics/electronics-equipment/multiplate/">Atotech/MKS — MultiPlate</a>：wafer/panel plating including glass substrates。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.ajinomoto.com/innovation/our_innovation/buildupfilm">Ajinomoto — ABF</a>：high-performance package substrate interlayer dielectric。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.tok.co.jp/eng/products/semiconductor-post">TOK — Semiconductor packaging materials/process</a>。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.jsr.co.jp/jsr_e/news/2024/20241122.html">JSR — CMP / low dielectric advanced packaging materials</a>。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.dupont.com/electronic-materials/semiconductor-packaging-materials.html">DuPont/Qnity — Advanced packaging materials</a>：RDL plating、dielectrics、bump materials。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.mdpi.com/2674-0729/4/3/37">2025 Review of Glass Substrate Technologies</a>：2–5 μm RDL research demonstration and technology review。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.sheitc.sh.gov.cn/cyfz/20260115/83daa049fb574a3ca811116bbfbb831e.html">上海市经济和信息化委员会 2026</a>：支持 2.5D/3D 先进封装用高模量 TGV 玻璃基板大尺寸量产与工艺验证。</li>
+    <li><a target="_blank" rel="noopener" href="https://www.21jingji.com/article/20250527/herald/2aa980a0cd9ea46ec7e276d645a237ec.html">21财经 / 南方系报道 — 中国 TGV 产业联盟与产业布局</a>。</li>
+  </ol>
+  <p class="small"><b>方法说明：</b>报告把“公开事实”与“规划 Benchmark / 战略推演”分开。凡没有统一产业标准或企业未公开量产数据的指标，不伪装成确定事实。企业名单用于能力定位，不代表已进入特定客户量产供应链。</p>
+</section>
+
+<div class="footer">AI Computing Hardware Insight · glass-core-insight v1.0 · Generated 2026-07-07</div>
+</main>
+</body>
+</html>
