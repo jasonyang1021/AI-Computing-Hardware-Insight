@@ -77,6 +77,35 @@ const topics = [
     ],
     risks: ["客户认证门槛高", "热可靠性问题放大", "先进封装产能约束", "出口管制影响"],
     actions: ["沉淀 HBM 可靠性 Dashboard", "建立材料-工艺-测试六级 Gate", "拆分 HBM4/HBM4E 路线图"],
+    deepDive: {
+      title: "HBM 产业深度拆解",
+      note: "从 Memory Product 走向 Customized Heterogeneous System Component",
+      benchmarks: [
+        ["HBM4 架构", "2048-bit 接口、Pin Speed、单 Stack 带宽、Base Die 定制能力", "HBM4/HBM4E 进入 2TB/s+ 到 3TB/s+ 级公开口径", "价值从 DRAM Die 向 Base Die、封装协同和客户定制迁移"],
+        ["累计良率", "DRAM Die 良率、TSV 良率、Bond 良率、Base Die、Package、Test", "Y_total 由多环节乘法决定，层数越高越敏感", "HBM 经济性核心不是单步良率，而是跨工序缺陷控制"],
+        ["热可靠性", "HBM Tj、Retention tail、Refresh activity、MUF/TIM 热阻、Thermal gradient", "训练/推理长时间高带宽负载放大热-保持-刷新-功耗闭环", "热问题直接耦合 DRAM 存储介质可靠性"],
+        ["测试体系", "Known Good Stack、ECC Telemetry、Stack Warpage、ΔR、Fail Bit Count", "Material -> Wafer -> Stack -> Package -> System -> Field 六级 Gate", "测试与可靠性平台会成为国产 HBM 的优先突破口"],
+      ],
+      competition: [
+        ["韩国", "DRAM Core Die、HBM 堆叠、MR-MUF/TC-NCF 量产学习曲线强", "先进逻辑 Base Die 和 CoWoS 级系统集成需跨区域协同", "仍是 HBM 主导阵营，但 HBM4 后需要更深 Foundry/客户协同"],
+        ["台湾", "Foundry、CoWoS、先进封装系统集成和 AI 客户协同强", "不掌握主流 DRAM Core Die", "HBM4 后权重上升，是系统封装集成关键节点"],
+        ["日本", "材料、精密设备、CMP、封装材料、测试可靠性生态强", "终端产品和 AI 客户定义能力相对弱", "是 HBM 隐形控制点，尤其在材料和设备环节"],
+        ["美国", "AI 架构、GPU/ASIC 客户、Micron、EDA/设备/标准和出口规则强", "完整制造链条分散", "定义需求和规则，并通过客户认证影响价值链"],
+        ["中国", "DRAM、封测、设备国产化和大规模制造有基础", "公开可验证先进 HBM 量产证据有限，可靠性/客户认证数据不足", "应先建设 HBM 可靠性、测试、TSV、热材料和封装协同能力"],
+      ],
+      capabilities: [
+        ["材料与介质", "DRAM 电容介质、TSV liner、MUF/EMC/NCF、RDL 介质、TIM", "介质可靠性不能只看 DRAM Cell，必须覆盖 TSV、键合、RDL、聚合物和热材料。"],
+        ["工艺与封装", "DRAM Fabrication、TSV、晶圆减薄、Microbump、TCB/MR-MUF/Hybrid Bonding、Base Die", "HBM 是前道 DRAM、中道 TSV、后道先进封装三套体系的耦合。"],
+        ["测试与可靠性", "Wafer test、Known Good Die/Stack、Stack Test、Package HTOL、System workload、Field telemetry", "可靠性不是最后验证，而是 HBM 成本曲线和客户准入的核心变量。"],
+      ],
+      opportunities: [
+        ["S 级", "HBM Reliability & Qualification Platform", "建立 Retention/VRT、TSV TDDB、Microbump EM、Warpage、ECC Telemetry 和 AI Workload Soak 平台。"],
+        ["S 级", "Advanced Test", "进入 Wafer、Stack、Package、System 多级测试，提升失效定位和客户认证能力。"],
+        ["S 级", "TSV + Bond + Test 闭环", "不要分散做单点设备，优先形成 TSV、Microbump、MUF/NCF、Electrical Test、FA 的闭环。"],
+        ["A+ 级", "MUF / Underfill / Thermal Materials", "按 Thermal x Mechanical x Moisture x Processability x Reliability 做多目标优化。"],
+        ["A+ 级", "TCB 与 Hybrid Bonding 双路线", "近期抓 TCB/MUF/NCF 良率，中期做 Hybrid Bonding Test Vehicle，长期面向 HBM5。"],
+      ],
+    },
     prompt: "你是 HBM 产业洞察专家。请从 DRAM、TSV、堆叠键合、Base Die、先进封装、热管理、可靠性测试和客户认证角度输出系统级洞察，并区分公开事实、产业推演和规划 Benchmark。",
   },
   {

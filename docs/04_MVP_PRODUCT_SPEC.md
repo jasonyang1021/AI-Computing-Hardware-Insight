@@ -59,6 +59,14 @@ Glass Core is the first deep topic and additionally includes:
 - Materials / process / equipment breakdown
 - China Gap and five-year opportunity list
 
+HBM is the second deep topic and additionally includes:
+
+- HBM4 value-chain reconstruction
+- Yield / reliability / thermal benchmark table
+- Korea / Taiwan / Japan / US / China competition matrix
+- Materials / packaging / reliability capability breakdown
+- China priority battlefields
+
 ## 5. Skill Model
 
 Each industry topic has its own Skill.
@@ -95,8 +103,8 @@ No full implementation is required in MVP v0.1.
 
 ## 8. Next Build Steps
 
-1. Finish Glass Core deep insight page
-2. Add HBM deep insight page using the existing HBM report
+1. Add Optical Interconnect deep insight page
+2. Add PCB deep insight page
 3. Turn static MVP into a Next.js app
 4. Add Supabase Auth and database
 5. Store reports and skills as structured Markdown
