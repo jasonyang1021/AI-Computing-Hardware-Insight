@@ -43,6 +43,7 @@
                 <span id="topicStatus" class="status-pill">Draft</span>
                 <div class="report-actions">
                   <button class="ghost-button compact-button" type="button" id="toggleSkill">查看 Skill</button>
+                  <button class="ghost-button compact-button" type="button" id="openTask" hidden>打开任务</button>
                   <button class="primary-button compact-button" type="button" id="updateInsight">更新洞察</button>
                   <span id="updatedAt">更新时间：2026-07-08</span>
                 </div>
@@ -190,6 +191,7 @@
             <div class="task-actions">
               <button class="primary-button" type="button" id="startInsightJob">开始更新</button>
               <button class="ghost-button" type="button" id="archiveCurrentReport">归档当前版本</button>
+              <button class="ghost-button" type="button" data-close-modal="insightJobModal">后台运行</button>
             </div>
           </section>
           <section class="task-status">

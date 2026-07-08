@@ -282,6 +282,7 @@ const skillCache = {};
 let insightRefreshVersion = "20260708";
 let skillPanelOpen = false;
 let activeJobTimer = null;
+let activeJob = null;
 const reportTopics = {
   "glass-core": {
     path: "reports/glass-core-report.html",
@@ -336,6 +337,7 @@ function renderIndustry() {
   document.querySelector("#updatedAt").textContent = `更新时间：${topic.updatedAt || "未更新"}`;
   document.querySelector("#skillName").textContent = topic.skill;
   renderSkillEditor(topic);
+  updateTaskEntry();
 
   renderDeepDive(topic);
 }
@@ -383,11 +385,29 @@ function openInsightJobModal() {
   const topic = activeTopic();
   document.querySelector("#jobTopicTitle").textContent = `${topic.name} 洞察任务`;
   document.querySelector("#jobSkillName").value = topic.skill;
-  document.querySelector("#jobBrief").value = "";
-  document.querySelector("#jobCommitTitle").textContent = "等待任务开始";
-  document.querySelector("#jobCommitDetail").textContent = "任务完成后会生成报告归档和 GitHub commit 记录。";
-  renderJobSteps(-1);
+  if (activeJob && activeJob.topicId === topic.id) {
+    document.querySelector("#jobBrief").value = activeJob.brief;
+    document.querySelector("#jobCommitTitle").textContent = activeJob.title;
+    document.querySelector("#jobCommitDetail").textContent = activeJob.detail;
+    renderJobSteps(activeJob.step, activeJob.status === "done");
+    document.querySelector("#startInsightJob").disabled = activeJob.status === "running";
+  } else {
+    document.querySelector("#jobBrief").value = "";
+    document.querySelector("#jobCommitTitle").textContent = "等待任务开始";
+    document.querySelector("#jobCommitDetail").textContent = "任务完成后会生成报告归档和 GitHub commit 记录。";
+    renderJobSteps(-1);
+    document.querySelector("#startInsightJob").disabled = false;
+  }
   setModalOpen("insightJobModal", true);
+}
+
+function updateTaskEntry() {
+  const button = document.querySelector("#openTask");
+  const topic = activeTopic();
+  const hasTopicJob = activeJob && activeJob.topicId === topic.id;
+  button.hidden = !hasTopicJob;
+  if (!hasTopicJob) return;
+  button.textContent = activeJob.status === "running" ? "打开任务（运行中）" : "打开任务";
 }
 
 function renderJobSteps(activeIndex, doneAll = false) {
@@ -408,14 +428,24 @@ function startInsightJob() {
   let index = 0;
 
   if (activeJobTimer) window.clearInterval(activeJobTimer);
+  activeJob = {
+    topicId: topic.id,
+    brief,
+    step: index,
+    status: "running",
+    title: "任务执行中",
+    detail: `主题：${topic.name}；更新重点：${brief}`,
+  };
+  updateTaskEntry();
   button.disabled = true;
-  title.textContent = "任务执行中";
-  detail.textContent = `主题：${topic.name}；更新重点：${brief}`;
+  title.textContent = activeJob.title;
+  detail.textContent = activeJob.detail;
   renderJobSteps(index);
 
   activeJobTimer = window.setInterval(() => {
     index += 1;
     if (index < jobSteps.length) {
+      activeJob.step = index;
       renderJobSteps(index);
       return;
     }
@@ -436,8 +466,16 @@ function startInsightJob() {
     insightRefreshVersion = String(now.getTime());
     document.querySelector("#updatedAt").textContent = `更新时间：${stamp}`;
     if (reportTopics[topic.id]) renderReportArchive(topic);
-    title.textContent = "任务已生成待归档草稿";
-    detail.textContent = `下一步接后端后，会提交 archive/${topic.id}/${now.toISOString().slice(0, 10)}.html 和 skills/${topic.skill}.md 到 GitHub。`;
+    activeJob = {
+      ...activeJob,
+      step: jobSteps.length,
+      status: "done",
+      title: "任务已生成待归档草稿",
+      detail: `下一步接后端后，会提交 archive/${topic.id}/${now.toISOString().slice(0, 10)}.html 和 skills/${topic.skill}.md 到 GitHub。`,
+    };
+    title.textContent = activeJob.title;
+    detail.textContent = activeJob.detail;
+    updateTaskEntry();
   }, 900);
 }
 
@@ -446,6 +484,15 @@ function archiveCurrentReport() {
   const date = new Date().toISOString().slice(0, 10);
   document.querySelector("#jobCommitTitle").textContent = "已生成归档计划";
   document.querySelector("#jobCommitDetail").textContent = `将归档当前报告到 archive/${topic.id}/${date}.html，并更新 metadata/${topic.id}.json。`;
+  activeJob = {
+    topicId: topic.id,
+    brief: document.querySelector("#jobBrief").value.trim(),
+    step: jobSteps.length,
+    status: "done",
+    title: "已生成归档计划",
+    detail: `将归档当前报告到 archive/${topic.id}/${date}.html，并更新 metadata/${topic.id}.json。`,
+  };
+  updateTaskEntry();
   renderJobSteps(jobSteps.length, true);
 }
 
@@ -669,6 +716,8 @@ document.querySelector("#saveSkill").addEventListener("click", () => {
 document.querySelector("#downloadSkill").addEventListener("click", downloadSkill);
 
 document.querySelector("#updateInsight").addEventListener("click", updateInsight);
+
+document.querySelector("#openTask").addEventListener("click", openInsightJobModal);
 
 document.querySelector("#openFullSkill").addEventListener("click", openFullSkillEditor);
 

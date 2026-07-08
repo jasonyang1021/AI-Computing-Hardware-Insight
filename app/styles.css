@@ -894,6 +894,9 @@ td strong {
 
 .skill-modal {
   width: min(1480px, 100%);
+  height: calc(100vh - 24px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .modal-header,
@@ -907,7 +910,7 @@ td strong {
 
 .modal-header {
   justify-content: space-between;
-  padding: 18px 20px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--line);
   background: #fbfcfd;
 }
@@ -1039,13 +1042,19 @@ td strong {
 .skill-editor-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
-  height: calc(100vh - 132px);
+  min-height: 0;
+  height: 100%;
 }
 
 .full-editor,
 .skill-preview {
   min-height: 0;
-  padding: 18px;
+  padding: 12px;
+}
+
+.full-editor {
+  height: 100%;
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .full-editor textarea {
@@ -1180,6 +1189,10 @@ td strong {
   .skill-editor-grid {
     height: calc(100vh - 104px);
     overflow: auto;
+  }
+
+  .full-editor {
+    min-height: min(680px, calc(100vh - 170px));
   }
 
   .task-form,
