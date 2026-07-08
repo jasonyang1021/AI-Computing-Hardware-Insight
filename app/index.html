@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Computing Hardware Insight</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-view="industry">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">AI</div>
+        <div>
+          <h1>计算硬件洞察</h1>
+          <p>Industry Insight MVP</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-item active" type="button" data-view-target="industry">产业洞察</button>
+        <button class="nav-item" type="button" data-view-target="academic">学术洞察</button>
+        <button class="nav-item" type="button" data-view-target="skills">Skills</button>
+        <button class="nav-item" type="button" data-view-target="permissions">权限管理</button>
+      </nav>
+
+      <section class="topic-panel">
+        <span>产业主题</span>
+        <div id="topicList" class="topic-list"></div>
+      </section>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI Computing Hardware Insight OS</p>
+          <h2 id="pageTitle">产业洞察</h2>
+        </div>
+        <div class="user-chip">
+          <strong>Owner</strong>
+          <span>jasonyang1021</span>
+        </div>
+      </header>
+
+      <section class="view-section active" data-view-section="industry">
+        <div class="industry-layout">
+          <section class="report-surface">
+            <div class="report-header">
+              <div>
+                <p class="eyebrow" id="topicCategory">Advanced Packaging</p>
+                <h3 id="topicTitle">Glass Core</h3>
+                <p id="topicSubtitle">先进封装玻璃基板产业洞察</p>
+              </div>
+              <span id="topicStatus" class="status-pill">Draft</span>
+            </div>
+
+            <section class="conclusion-grid" id="conclusionGrid"></section>
+
+            <section class="content-grid">
+              <article class="panel">
+                <p class="eyebrow">Key Findings</p>
+                <h4>关键判断</h4>
+                <ul id="findingList"></ul>
+              </article>
+              <article class="panel">
+                <p class="eyebrow">Industry Chain</p>
+                <h4>产业链视角</h4>
+                <div id="chainList" class="chain-list"></div>
+              </article>
+              <article class="panel">
+                <p class="eyebrow">Risks</p>
+                <h4>主要风险</h4>
+                <ul id="riskList"></ul>
+              </article>
+              <article class="panel">
+                <p class="eyebrow">So What</p>
+                <h4>下一步动作</h4>
+                <ul id="actionList"></ul>
+              </article>
+            </section>
+          </section>
+
+          <aside class="skill-card">
+            <div class="skill-card-header">
+              <div>
+                <p class="eyebrow">Topic Skill</p>
+                <h3 id="skillName">glass-core-insight</h3>
+              </div>
+              <span id="skillOwner">Expert editable</span>
+            </div>
+            <label>
+              <span>Skill 指令</span>
+              <textarea id="skillPrompt"></textarea>
+            </label>
+            <div class="skill-actions">
+              <button class="ghost-button" type="button" id="resetSkill">重置</button>
+              <button class="primary-button" type="button" id="saveSkill">保存草稿</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view-section" data-view-section="academic">
+        <div class="placeholder">
+          <p class="eyebrow">Academic Insight</p>
+          <h3>学术洞察</h3>
+          <p>预留论文库、技术机制提取、可靠性测试和研究到产业影响判断。MVP 阶段暂不展开。</p>
+        </div>
+      </section>
+
+      <section class="view-section" data-view-section="skills">
+        <div class="panel">
+          <p class="eyebrow">Skill Registry</p>
+          <h3>Skills 管理</h3>
+          <div id="skillRegistry" class="registry-list"></div>
+        </div>
+      </section>
+
+      <section class="view-section" data-view-section="permissions">
+        <div class="panel">
+          <p class="eyebrow">Access Control</p>
+          <h3>权限管理</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>用户</th>
+                <th>角色</th>
+                <th>可编辑主题</th>
+                <th>状态</th>
+              </tr>
+            </thead>
+            <tbody id="permissionRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

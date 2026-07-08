@@ -1,0 +1,429 @@
+:root {
+  --ink: #172026;
+  --muted: #61717d;
+  --line: #d7e0e5;
+  --page: #eef3f5;
+  --panel: #ffffff;
+  --nav: #18272d;
+  --accent: #0c7c86;
+  --accent-soft: #e6f3f4;
+  --warn: #d1495b;
+  --gold: #f0b429;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  min-height: 100vh;
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 26px 20px;
+  background: var(--nav);
+  color: #f7fbfc;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--accent);
+  font-weight: 800;
+}
+
+.brand h1,
+.brand p,
+.topbar h2,
+.topbar p,
+.report-header h3,
+.report-header p,
+.panel h3,
+.panel h4,
+.placeholder h3,
+.placeholder p,
+.skill-card h3 {
+  margin: 0;
+}
+
+.brand h1 {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.brand p {
+  margin-top: 4px;
+  color: #a7bcc3;
+  font-size: 12px;
+}
+
+.nav,
+.topic-list,
+.registry-list {
+  display: grid;
+  gap: 8px;
+}
+
+.nav::before,
+.topic-panel > span {
+  content: "功能";
+  color: #8fa8af;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.nav-item,
+.topic-button {
+  min-height: 40px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #ccdade;
+  text-align: left;
+  cursor: pointer;
+}
+
+.nav-item {
+  padding: 0 12px;
+}
+
+.topic-button {
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+}
+
+.topic-button span {
+  color: #8fa8af;
+  font-size: 12px;
+}
+
+.nav-item.active,
+.nav-item:hover,
+.topic-button.active,
+.topic-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.topic-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.main {
+  min-width: 0;
+  padding: 26px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.topbar h2 {
+  margin-top: 4px;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.user-chip,
+.status-pill {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.user-chip {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+}
+
+.user-chip span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.view-section {
+  display: none;
+}
+
+.view-section.active {
+  display: block;
+}
+
+.industry-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 16px;
+}
+
+.report-surface,
+.skill-card,
+.panel,
+.placeholder {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.report-surface,
+.skill-card,
+.panel,
+.placeholder {
+  padding: 18px;
+}
+
+.report-header,
+.skill-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.report-header h3 {
+  margin-top: 4px;
+  font-size: 30px;
+}
+
+.report-header p:not(.eyebrow) {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.status-pill {
+  padding: 7px 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.conclusion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.conclusion-card {
+  padding: 14px;
+  border: 1px solid #cfe0e4;
+  border-radius: 8px;
+  background: #f6fbfc;
+}
+
+.conclusion-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.conclusion-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 24px;
+  color: var(--accent);
+}
+
+.conclusion-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.panel h3,
+.panel h4,
+.placeholder h3 {
+  margin-top: 4px;
+}
+
+.panel ul {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.chain-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.chain-step,
+.registry-item {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfe;
+}
+
+.chain-step strong,
+.registry-item strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.chain-step span,
+.registry-item span,
+.placeholder p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.skill-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.skill-card-header span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.skill-card label {
+  display: grid;
+  gap: 8px;
+}
+
+.skill-card label span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+textarea {
+  width: 100%;
+  min-height: 360px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.skill-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.primary-button,
+.ghost-button {
+  min-height: 38px;
+  padding: 0 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.primary-button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+
+.ghost-button {
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1080px) {
+  body {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .industry-layout,
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .main {
+    padding: 16px;
+  }
+
+  .topbar,
+  .report-header,
+  .skill-card-header {
+    flex-direction: column;
+  }
+
+  .conclusion-grid {
+    grid-template-columns: 1fr;
+  }
+}
