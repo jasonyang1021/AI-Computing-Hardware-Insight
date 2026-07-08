@@ -281,6 +281,16 @@ const skillDrafts = {};
 const skillCache = {};
 let insightRefreshVersion = "20260708";
 let skillPanelOpen = false;
+const reportTopics = {
+  "glass-core": {
+    path: "reports/glass-core-report.html",
+    title: "Glass Core 产业洞察完整报告",
+  },
+  hbm: {
+    path: "reports/hbm-report.html",
+    title: "HBM 产业深度洞察完整报告",
+  },
+};
 
 const topicList = document.querySelector("#topicList");
 const navItems = document.querySelectorAll("[data-view-target]");
@@ -303,14 +313,14 @@ function renderTopics() {
 
 function renderIndustry() {
   const topic = activeTopic();
-  const isGlassReport = topic.id === "glass-core";
-  document.querySelector(".industry-layout").classList.toggle("report-only", isGlassReport && !skillPanelOpen);
-  document.querySelector(".skill-card").hidden = isGlassReport && !skillPanelOpen;
+  const isReportTopic = Boolean(reportTopics[topic.id]);
+  document.querySelector(".industry-layout").classList.toggle("report-only", isReportTopic && !skillPanelOpen);
+  document.querySelector(".skill-card").hidden = isReportTopic && !skillPanelOpen;
   document.querySelector("#toggleSkill").textContent = skillPanelOpen ? "收起 Skill" : "查看 Skill";
-  document.querySelector("#toggleSkill").hidden = !isGlassReport;
-  document.querySelector("#topicCategory").hidden = isGlassReport;
-  document.querySelector("#topicSubtitle").hidden = isGlassReport;
-  document.querySelector("#topicStatus").hidden = isGlassReport;
+  document.querySelector("#toggleSkill").hidden = !isReportTopic;
+  document.querySelector("#topicCategory").hidden = isReportTopic;
+  document.querySelector("#topicSubtitle").hidden = isReportTopic;
+  document.querySelector("#topicStatus").hidden = isReportTopic;
   document.querySelector("#topicCategory").textContent = topic.category;
   document.querySelector("#topicTitle").textContent = topic.name;
   document.querySelector("#topicSubtitle").textContent = topic.subtitle;
@@ -357,9 +367,9 @@ function renderDeepDive(topic) {
   }
 
   panel.hidden = false;
-  panel.classList.toggle("archive-mode", topic.id === "glass-core");
-  if (topic.id === "glass-core") {
-    renderGlassArchive();
+  panel.classList.toggle("archive-mode", Boolean(reportTopics[topic.id]));
+  if (reportTopics[topic.id]) {
+    renderReportArchive(topic);
     return;
   }
 
@@ -448,13 +458,14 @@ function renderDeepDive(topic) {
   `;
 }
 
-function renderGlassArchive() {
+function renderReportArchive(topic) {
   const panel = document.querySelector("#deepDivePanel");
-  const reportPath = `reports/glass-core-report.html?v=${insightRefreshVersion}`;
+  const report = reportTopics[topic.id];
+  const reportPath = `${report.path}?v=${insightRefreshVersion}`;
 
   panel.innerHTML = `
     <section class="archive-embed">
-      <iframe id="glassReportFrame" class="archive-frame" src="${reportPath}" title="Glass Core 产业洞察完整报告"></iframe>
+      <iframe id="insightReportFrame" class="archive-frame" src="${reportPath}" title="${report.title}"></iframe>
     </section>
   `;
 }
@@ -472,7 +483,7 @@ function updateInsight() {
   topic.updatedAt = stamp;
   insightRefreshVersion = String(now.getTime());
   document.querySelector("#updatedAt").textContent = `更新时间：${stamp}`;
-  if (topic.id === "glass-core") renderGlassArchive();
+  if (reportTopics[topic.id]) renderReportArchive(topic);
 }
 
 function downloadSkill() {
