@@ -24,6 +24,32 @@ const topics = [
     ],
     risks: ["良率爬坡慢", "客户认证周期长", "与 ABF / 硅中介层路线竞争", "可靠性数据不足"],
     actions: ["建立玻璃基板 Benchmark 数据表", "拆分材料/工艺/设备三张供应商地图", "补中国 Gap 与五年机会矩阵"],
+    deepDive: {
+      title: "Glass Core 产业拆解",
+      note: "按 glass-core-insight：材料 -> 工艺 -> 设备 -> 竞争格局 -> 中国建议",
+      benchmarks: [
+        ["玻璃基材", "低 CTE、厚度均匀性、表面缺陷密度、平整度", "面向大尺寸先进封装，优先看低翘曲与高平整度", "决定能否承接大尺寸 Chiplet / AI Package"],
+        ["TGV", "孔径一致性、孔壁损伤、金属化填充、导通良率", "高密度、低缺陷、可量产的玻璃通孔能力", "是玻璃基板区别于传统载板的核心制造门槛"],
+        ["ABF / 介电层", "低损耗、附着力、层间可靠性、细线路能力", "与现有 ABF 生态兼容，同时支持更高互连密度", "决定玻璃基板是否能进入主流封装供应链"],
+        ["可靠性", "热循环、翘曲、分层、湿热、TGV 漏电与疲劳", "必须建立材料-工艺-封装级 Test Vehicle", "客户认证周期的关键瓶颈"],
+      ],
+      competition: [
+        ["日韩台", "材料、精密加工、封装生态、客户验证能力强", "路线由大客户牵引，产能扩张节奏受认证影响", "第一梯队，更可能率先形成可量产供应链"],
+        ["美国", "AI 需求定义、设备、EDA、IDM/Foundry 路线影响力强", "本土制造链条相对分散", "定义方向和标准，推动 Chiplet / AI Package 需求"],
+        ["中国", "玻璃材料、激光加工、电镀、检测和封测具备切入基础", "高端材料、TGV 良率、可靠性数据和客户认证不足", "应优先做 Test Vehicle、设备材料协同和国产验证平台"],
+      ],
+      capabilities: [
+        ["材料体系", "低 CTE 玻璃、ABF、PI/Low-Dk、铜材料、缓冲层材料", "重点不是单点替代，而是材料组合窗口和封装可靠性。"],
+        ["工艺体系", "玻璃减薄、清洗、TGV、种子层、电镀、CMP、RDL、检测", "TGV + 金属化 + 平坦化是良率主线，需要工艺闭环。"],
+        ["设备体系", "激光钻孔/改质、湿法、电镀、曝光、AOI、X-Ray、翘曲检测", "国产机会集中在封装级设备、检测设备和自动化搬运。"],
+      ],
+      opportunities: [
+        ["S 级", "TGV 加工与金属化闭环", "用统一 Test Vehicle 做孔径、漏电、导通、疲劳和良率统计。"],
+        ["S 级", "可靠性与检测平台", "建立热循环、湿热、翘曲、分层、TGV 漏电和失效分析数据库。"],
+        ["A+ 级", "ABF / 介电 / 缓冲材料国产验证", "不要只比较材料参数，要做封装结构级验证。"],
+        ["A 级", "设备材料工艺联合开发", "激光、电镀、清洗、AOI 与材料供应商共同优化良率。"],
+      ],
+    },
     prompt: "你是 Glass Core 产业洞察专家。请围绕材料、工艺、设备、全球竞争格局、未来路线和中国企业建议输出决策导向洞察。禁止百科式介绍，必须包含 Benchmark、KPI、JKT/US/CN 对比、中国 Gap 和行动建议。",
   },
   {
@@ -148,6 +174,57 @@ function renderIndustry() {
       <div class="chain-step">
         <strong>${name}</strong>
         <span>${detail}</span>
+      </div>
+    `)
+    .join("");
+  renderDeepDive(topic);
+}
+
+function renderDeepDive(topic) {
+  const panel = document.querySelector("#deepDivePanel");
+  if (!topic.deepDive) {
+    panel.hidden = true;
+    return;
+  }
+
+  panel.hidden = false;
+  document.querySelector("#deepDiveTitle").textContent = topic.deepDive.title;
+  document.querySelector("#deepDiveNote").textContent = topic.deepDive.note;
+  document.querySelector("#benchmarkRows").innerHTML = topic.deepDive.benchmarks
+    .map(([dimension, kpi, benchmark, meaning]) => `
+      <tr>
+        <td><strong>${dimension}</strong></td>
+        <td>${kpi}</td>
+        <td>${benchmark}</td>
+        <td>${meaning}</td>
+      </tr>
+    `)
+    .join("");
+  document.querySelector("#competitionRows").innerHTML = topic.deepDive.competition
+    .map(([camp, strength, gap, judgment]) => `
+      <tr>
+        <td><strong>${camp}</strong></td>
+        <td>${strength}</td>
+        <td>${gap}</td>
+        <td>${judgment}</td>
+      </tr>
+    `)
+    .join("");
+  document.querySelector("#capabilityList").innerHTML = topic.deepDive.capabilities
+    .map(([name, scope, insight]) => `
+      <div class="capability-item">
+        <strong>${name}</strong>
+        <span>${scope}</span>
+        <p>${insight}</p>
+      </div>
+    `)
+    .join("");
+  document.querySelector("#opportunityList").innerHTML = topic.deepDive.opportunities
+    .map(([level, title, action]) => `
+      <div class="opportunity-item">
+        <span>${level}</span>
+        <strong>${title}</strong>
+        <p>${action}</p>
       </div>
     `)
     .join("");

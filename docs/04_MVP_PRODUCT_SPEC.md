@@ -52,6 +52,13 @@ Each topic includes:
 - Next actions
 - Linked Skill
 
+Glass Core is the first deep topic and additionally includes:
+
+- Benchmark / KPI table
+- JKT / US / CN competition matrix
+- Materials / process / equipment breakdown
+- China Gap and five-year opportunity list
+
 ## 5. Skill Model
 
 Each industry topic has its own Skill.
@@ -88,8 +95,10 @@ No full implementation is required in MVP v0.1.
 
 ## 8. Next Build Steps
 
-1. Turn static MVP into a Next.js app
-2. Add Supabase Auth and database
-3. Store reports and skills as structured Markdown
-4. Add report versioning
-5. Add expert review workflow
+1. Finish Glass Core deep insight page
+2. Add HBM deep insight page using the existing HBM report
+3. Turn static MVP into a Next.js app
+4. Add Supabase Auth and database
+5. Store reports and skills as structured Markdown
+6. Add report versioning
+7. Add expert review workflow

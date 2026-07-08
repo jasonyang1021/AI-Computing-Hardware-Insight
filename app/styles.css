@@ -275,6 +275,44 @@ textarea {
   gap: 12px;
 }
 
+.deep-dive {
+  margin-top: 16px;
+}
+
+.section-title {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.section-title h4,
+.section-title p {
+  margin: 0;
+}
+
+.section-title h4 {
+  margin-top: 4px;
+  font-size: 20px;
+}
+
+.section-title span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.deep-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.wide-panel {
+  grid-column: 1 / -1;
+}
+
 .panel h3,
 .panel h4,
 .placeholder h3 {
@@ -297,7 +335,9 @@ textarea {
 }
 
 .chain-step,
-.registry-item {
+.registry-item,
+.capability-item,
+.opportunity-item {
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -305,17 +345,49 @@ textarea {
 }
 
 .chain-step strong,
-.registry-item strong {
+.registry-item strong,
+.capability-item strong,
+.opportunity-item strong {
   display: block;
   margin-bottom: 4px;
 }
 
 .chain-step span,
 .registry-item span,
+.capability-item span,
+.opportunity-item span,
 .placeholder p {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.45;
+}
+
+.capability-list,
+.opportunity-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.capability-item p,
+.opportunity-item p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.opportunity-item span {
+  display: inline-flex;
+  min-width: 42px;
+  min-height: 24px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 800;
 }
 
 .skill-card {
@@ -383,18 +455,33 @@ table {
   margin-top: 12px;
 }
 
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
 th,
 td {
   padding: 12px 10px;
   border-bottom: 1px solid var(--line);
   text-align: left;
   font-size: 14px;
+  vertical-align: top;
 }
 
 th {
   color: var(--muted);
   font-size: 12px;
   text-transform: uppercase;
+}
+
+td {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+td strong {
+  color: var(--ink);
 }
 
 @media (max-width: 1080px) {
@@ -407,8 +494,13 @@ th {
   }
 
   .industry-layout,
-  .content-grid {
+  .content-grid,
+  .deep-grid {
     grid-template-columns: 1fr;
+  }
+
+  .wide-panel {
+    grid-column: auto;
   }
 }
 
