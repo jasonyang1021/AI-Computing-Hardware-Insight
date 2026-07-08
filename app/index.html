@@ -124,6 +124,7 @@
             </label>
             <div class="skill-actions">
               <button class="ghost-button" type="button" id="resetSkill">重置</button>
+              <button class="ghost-button" type="button" id="openFullSkill">全屏编辑</button>
               <button class="ghost-button" type="button" id="downloadSkill">下载 Skill</button>
               <button class="primary-button" type="button" id="saveSkill">保存草稿</button>
             </div>
@@ -165,6 +166,73 @@
         </div>
       </section>
     </main>
+
+    <section class="modal-shell" id="insightJobModal" hidden>
+      <div class="modal-backdrop" data-close-modal="insightJobModal"></div>
+      <article class="task-modal">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Insight Task</p>
+            <h3 id="jobTopicTitle">更新洞察</h3>
+          </div>
+          <button class="icon-button" type="button" data-close-modal="insightJobModal">×</button>
+        </header>
+        <div class="task-grid">
+          <section class="task-form">
+            <label>
+              <span>执行 Skill</span>
+              <input id="jobSkillName" type="text" readonly />
+            </label>
+            <label>
+              <span>本次更新重点</span>
+              <textarea id="jobBrief" placeholder="例如：补充最新供应商进展、更新市场份额、检查技术路线变化"></textarea>
+            </label>
+            <div class="task-actions">
+              <button class="primary-button" type="button" id="startInsightJob">开始更新</button>
+              <button class="ghost-button" type="button" id="archiveCurrentReport">归档当前版本</button>
+            </div>
+          </section>
+          <section class="task-status">
+            <p class="eyebrow">Run Status</p>
+            <ol id="jobSteps" class="job-steps"></ol>
+            <div class="job-output">
+              <strong id="jobCommitTitle">等待任务开始</strong>
+              <span id="jobCommitDetail">任务完成后会生成报告归档和 GitHub commit 记录。</span>
+            </div>
+          </section>
+        </div>
+      </article>
+    </section>
+
+    <section class="modal-shell" id="skillEditorModal" hidden>
+      <div class="modal-backdrop" data-close-modal="skillEditorModal"></div>
+      <article class="skill-modal">
+        <header class="modal-header">
+          <div>
+            <p class="eyebrow">Skill Editor</p>
+            <h3 id="fullSkillName">Skill 全屏编辑</h3>
+          </div>
+          <div class="modal-actions">
+            <button class="ghost-button" type="button" id="downloadFullSkill">下载</button>
+            <button class="primary-button" type="button" id="saveSkillToGithub">保存并归档</button>
+            <button class="icon-button" type="button" data-close-modal="skillEditorModal">×</button>
+          </div>
+        </header>
+        <div class="skill-editor-grid">
+          <label class="full-editor">
+            <span>Markdown</span>
+            <textarea id="fullSkillPrompt"></textarea>
+          </label>
+          <section class="skill-preview">
+            <div class="preview-header">
+              <p class="eyebrow">Preview / Checks</p>
+              <span id="skillSaveStatus">未保存</span>
+            </div>
+            <div id="skillPreview" class="preview-body"></div>
+          </section>
+        </div>
+      </article>
+    </section>
 
     <script src="app.js"></script>
   </body>

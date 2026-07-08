@@ -281,6 +281,7 @@ const skillDrafts = {};
 const skillCache = {};
 let insightRefreshVersion = "20260708";
 let skillPanelOpen = false;
+let activeJobTimer = null;
 const reportTopics = {
   "glass-core": {
     path: "reports/glass-core-report.html",
@@ -295,6 +296,13 @@ const reportTopics = {
 const topicList = document.querySelector("#topicList");
 const navItems = document.querySelectorAll("[data-view-target]");
 const viewSections = document.querySelectorAll("[data-view-section]");
+const jobSteps = [
+  ["准备上下文", "读取当前报告、Skill 和归档元数据"],
+  ["执行 Skill", "调用 AI 生成新版洞察草稿"],
+  ["生成报告", "输出 HTML 报告和本次更新摘要"],
+  ["等待审核", "专家确认内容后再归档"],
+  ["归档 GitHub", "提交报告、Skill 和 metadata commit"],
+];
 
 function activeTopic() {
   return topics.find((topic) => topic.id === activeTopicId) || topics[0];
@@ -357,6 +365,126 @@ async function renderSkillEditor(topic) {
       owner.textContent = "Fallback prompt";
     }
   }
+}
+
+function currentSkillContent() {
+  return document.querySelector("#skillPrompt").value;
+}
+
+function setModalOpen(id, open) {
+  document.querySelector(`#${id}`).hidden = !open;
+}
+
+function closeModal(id) {
+  setModalOpen(id, false);
+}
+
+function openInsightJobModal() {
+  const topic = activeTopic();
+  document.querySelector("#jobTopicTitle").textContent = `${topic.name} 洞察任务`;
+  document.querySelector("#jobSkillName").value = topic.skill;
+  document.querySelector("#jobBrief").value = "";
+  document.querySelector("#jobCommitTitle").textContent = "等待任务开始";
+  document.querySelector("#jobCommitDetail").textContent = "任务完成后会生成报告归档和 GitHub commit 记录。";
+  renderJobSteps(-1);
+  setModalOpen("insightJobModal", true);
+}
+
+function renderJobSteps(activeIndex, doneAll = false) {
+  document.querySelector("#jobSteps").innerHTML = jobSteps
+    .map(([title, detail], index) => {
+      const state = doneAll || index < activeIndex ? "done" : index === activeIndex ? "active" : "";
+      return `<li class="${state}"><div><strong>${title}</strong><span>${detail}</span></div></li>`;
+    })
+    .join("");
+}
+
+function startInsightJob() {
+  const topic = activeTopic();
+  const brief = document.querySelector("#jobBrief").value.trim() || "按当前 Skill 全量刷新洞察报告。";
+  const title = document.querySelector("#jobCommitTitle");
+  const detail = document.querySelector("#jobCommitDetail");
+  const button = document.querySelector("#startInsightJob");
+  let index = 0;
+
+  if (activeJobTimer) window.clearInterval(activeJobTimer);
+  button.disabled = true;
+  title.textContent = "任务执行中";
+  detail.textContent = `主题：${topic.name}；更新重点：${brief}`;
+  renderJobSteps(index);
+
+  activeJobTimer = window.setInterval(() => {
+    index += 1;
+    if (index < jobSteps.length) {
+      renderJobSteps(index);
+      return;
+    }
+
+    window.clearInterval(activeJobTimer);
+    activeJobTimer = null;
+    button.disabled = false;
+    renderJobSteps(jobSteps.length, true);
+    const now = new Date();
+    const stamp = now.toLocaleString("zh-CN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    topic.updatedAt = stamp;
+    insightRefreshVersion = String(now.getTime());
+    document.querySelector("#updatedAt").textContent = `更新时间：${stamp}`;
+    if (reportTopics[topic.id]) renderReportArchive(topic);
+    title.textContent = "任务已生成待归档草稿";
+    detail.textContent = `下一步接后端后，会提交 archive/${topic.id}/${now.toISOString().slice(0, 10)}.html 和 skills/${topic.skill}.md 到 GitHub。`;
+  }, 900);
+}
+
+function archiveCurrentReport() {
+  const topic = activeTopic();
+  const date = new Date().toISOString().slice(0, 10);
+  document.querySelector("#jobCommitTitle").textContent = "已生成归档计划";
+  document.querySelector("#jobCommitDetail").textContent = `将归档当前报告到 archive/${topic.id}/${date}.html，并更新 metadata/${topic.id}.json。`;
+  renderJobSteps(jobSteps.length, true);
+}
+
+function openFullSkillEditor() {
+  const topic = activeTopic();
+  const content = currentSkillContent();
+  document.querySelector("#fullSkillName").textContent = `${topic.skill} 全屏编辑`;
+  document.querySelector("#fullSkillPrompt").value = content;
+  document.querySelector("#skillSaveStatus").textContent = "未保存";
+  renderSkillPreview(content);
+  setModalOpen("skillEditorModal", true);
+}
+
+function renderSkillPreview(content) {
+  const lines = content.split("\n");
+  const headings = lines.filter((line) => /^#{1,3}\s+/.test(line)).slice(0, 8);
+  const hasFrontmatter = content.trimStart().startsWith("---");
+  const hasName = /name:\s*\S+/.test(content);
+  const hasDescription = /description:\s*\S+/.test(content);
+  const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;
+  document.querySelector("#skillPreview").innerHTML = `
+    <h4>结构检查</h4>
+    <ul>
+      <li>Frontmatter：${hasFrontmatter ? "已包含" : "缺失"}</li>
+      <li>name 字段：${hasName ? "已包含" : "缺失"}</li>
+      <li>description 字段：${hasDescription ? "已包含" : "缺失"}</li>
+      <li>内容规模：约 ${wordCount} 个词元/片段</li>
+      <li>主要标题：${headings.length ? headings.join(" / ") : "暂无 Markdown 标题"}</li>
+    </ul>
+  `;
+}
+
+function saveFullSkill() {
+  const topic = activeTopic();
+  const content = document.querySelector("#fullSkillPrompt").value;
+  skillDrafts[topic.id] = content;
+  document.querySelector("#skillPrompt").value = content;
+  document.querySelector("#skillOwner").textContent = "Draft saved locally";
+  document.querySelector("#skillSaveStatus").textContent = `已生成 GitHub 归档计划：skills/${topic.skill}.md`;
 }
 
 function renderDeepDive(topic) {
@@ -471,19 +599,7 @@ function renderReportArchive(topic) {
 }
 
 function updateInsight() {
-  const topic = activeTopic();
-  const now = new Date();
-  const stamp = now.toLocaleString("zh-CN", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  topic.updatedAt = stamp;
-  insightRefreshVersion = String(now.getTime());
-  document.querySelector("#updatedAt").textContent = `更新时间：${stamp}`;
-  if (reportTopics[topic.id]) renderReportArchive(topic);
+  openInsightJobModal();
 }
 
 function downloadSkill() {
@@ -553,6 +669,28 @@ document.querySelector("#saveSkill").addEventListener("click", () => {
 document.querySelector("#downloadSkill").addEventListener("click", downloadSkill);
 
 document.querySelector("#updateInsight").addEventListener("click", updateInsight);
+
+document.querySelector("#openFullSkill").addEventListener("click", openFullSkillEditor);
+
+document.querySelector("#downloadFullSkill").addEventListener("click", () => {
+  document.querySelector("#skillPrompt").value = document.querySelector("#fullSkillPrompt").value;
+  downloadSkill();
+});
+
+document.querySelector("#saveSkillToGithub").addEventListener("click", saveFullSkill);
+
+document.querySelector("#fullSkillPrompt").addEventListener("input", (event) => {
+  document.querySelector("#skillSaveStatus").textContent = "有未保存修改";
+  renderSkillPreview(event.target.value);
+});
+
+document.querySelector("#startInsightJob").addEventListener("click", startInsightJob);
+
+document.querySelector("#archiveCurrentReport").addEventListener("click", archiveCurrentReport);
+
+document.querySelectorAll("[data-close-modal]").forEach((button) => {
+  button.addEventListener("click", () => closeModal(button.dataset.closeModal));
+});
 
 document.querySelector("#toggleSkill").addEventListener("click", () => {
   skillPanelOpen = !skillPanelOpen;
