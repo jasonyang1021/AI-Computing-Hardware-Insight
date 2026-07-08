@@ -12,6 +12,21 @@ const topics = {
     skillPath: "app/skills/hbm-industry-insight.md",
     reportPath: "app/reports/hbm-report.html",
   },
+  pcb: {
+    name: "PCB",
+    skillPath: "app/skills/pcb-insight.md",
+    reportPath: "app/reports/pcb-report.html",
+  },
+  mlcc: {
+    name: "MLCC",
+    skillPath: "app/skills/mlcc-insight.md",
+    reportPath: "app/reports/mlcc-report.html",
+  },
+  optical: {
+    name: "光电互联",
+    skillPath: "app/skills/optical-interconnect-insight.md",
+    reportPath: "app/reports/optical-interconnect-report.html",
+  },
 };
 
 module.exports = async function handler(request, response) {

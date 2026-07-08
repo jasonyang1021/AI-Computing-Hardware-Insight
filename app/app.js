@@ -116,7 +116,7 @@ const topics = [
     category: "Networking",
     subtitle: "AI 数据中心光互联产业洞察",
     status: "Planned",
-    updatedAt: "待更新",
+    updatedAt: "2026-07-08",
     skill: "optical-interconnect-insight",
     conclusions: [
       ["需求拉动", "高", "AI 集群规模扩大推动交换、光模块、硅光和 CPO 关注度上升。"],
@@ -135,6 +135,7 @@ const topics = [
     category: "Board & Components",
     subtitle: "AI 服务器 PCB 产业洞察",
     status: "Planned",
+    updatedAt: "2026-07-08",
     skill: "pcb-insight",
     conclusions: [
       ["价值量提升", "中高", "AI 服务器推动高层数、高速低损耗和电源完整性要求提升。"],
@@ -146,6 +147,25 @@ const topics = [
     risks: ["客户集中", "材料认证慢", "价格周期波动"],
     actions: ["补 AI 服务器 PCB 层数和价值量模型", "建立材料供应链表", "拆出 HDI/高速板/电源板机会"],
     prompt: "你是 AI 服务器 PCB 产业洞察专家。请围绕高层数、高速信号、电源完整性、低损耗材料、良率、客户认证和供应链格局输出产业洞察。",
+  },
+  {
+    id: "mlcc",
+    name: "MLCC",
+    category: "Passive Components",
+    subtitle: "AI 服务器与高端计算 MLCC 产业洞察",
+    status: "Planned",
+    updatedAt: "2026-07-08",
+    skill: "mlcc-insight",
+    conclusions: [
+      ["需求结构升级", "中高", "AI 服务器、GPU 板卡和高速电源模块提高高容、高可靠、低 ESL MLCC 用量和规格要求。"],
+      ["材料工艺壁垒", "高", "介质粉体、薄层叠印、烧结、电极体系和可靠性控制共同决定高端 MLCC 能力。"],
+      ["国产机会", "中", "消费级产能不等于高端服务器级能力，突破点在车规/工规可靠性、高容小型化和客户认证。"],
+    ],
+    findings: ["MLCC 是 AI 硬件电源完整性和可靠性的隐形约束件。", "高端 MLCC 的竞争核心是材料配方、超薄介质层、内部电极和长期可靠性数据。"],
+    chain: [["材料", "钛酸钡粉体、添加剂、镍内电极、铜/银端电极"], ["工艺", "流延、印刷、叠层、切割、排胶、烧结、端接"], ["客户", "GPU、服务器主板、VRM、电源模块、网络设备"]],
+    risks: ["高端客户认证周期长", "粉体和设备 know-how 壁垒高", "价格周期和库存波动"],
+    actions: ["建立 AI 板卡 MLCC BOM 与规格库", "拆分高容/低 ESL/高可靠供应商图谱", "补材料和设备国产化 Gap"],
+    prompt: "你是 AI 硬件 MLCC 产业洞察专家。请围绕钛酸钡粉体、介质层薄型化、镍电极、叠层烧结、低 ESL、高可靠性、服务器/GPU 电源完整性和供应商格局输出决策导向洞察。",
   },
 ];
 
@@ -293,11 +313,24 @@ const reportTopics = {
     path: "reports/hbm-report.html",
     title: "HBM 产业深度洞察完整报告",
   },
+  pcb: {
+    path: "reports/pcb-report.html",
+    title: "AI 服务器 PCB 产业洞察完整报告",
+  },
+  mlcc: {
+    path: "reports/mlcc-report.html",
+    title: "AI 硬件 MLCC 产业洞察完整报告",
+  },
+  optical: {
+    path: "reports/optical-interconnect-report.html",
+    title: "AI 数据中心光电互联产业洞察完整报告",
+  },
 };
 
 const topicList = document.querySelector("#topicList");
 const navItems = document.querySelectorAll("[data-view-target]");
 const viewSections = document.querySelectorAll("[data-view-section]");
+const topicOrder = ["glass-core", "hbm", "pcb", "mlcc", "optical"];
 const jobSteps = [
   ["准备上下文", "读取当前报告、Skill 和归档元数据"],
   ["执行 Skill", "调用 AI 生成新版洞察草稿"],
@@ -310,9 +343,13 @@ function activeTopic() {
   return topics.find((topic) => topic.id === activeTopicId) || topics[0];
 }
 
+function orderedTopics() {
+  return [...topics].sort((a, b) => topicOrder.indexOf(a.id) - topicOrder.indexOf(b.id));
+}
+
 function renderTopics() {
   topicList.hidden = !industryExpanded;
-  topicList.innerHTML = topics
+  topicList.innerHTML = orderedTopics()
     .map((topic) => `
       <button class="topic-button ${topic.id === activeTopicId ? "active" : ""}" type="button" data-topic="${topic.id}">
         <strong>${topic.name}</strong>
@@ -590,17 +627,19 @@ async function saveFullSkill() {
 
 function renderDeepDive(topic) {
   const panel = document.querySelector("#deepDivePanel");
+  panel.classList.toggle("archive-mode", Boolean(reportTopics[topic.id]));
+  if (reportTopics[topic.id]) {
+    panel.hidden = false;
+    renderReportArchive(topic);
+    return;
+  }
+
   if (!topic.deepDive) {
     panel.hidden = true;
     return;
   }
 
   panel.hidden = false;
-  panel.classList.toggle("archive-mode", Boolean(reportTopics[topic.id]));
-  if (reportTopics[topic.id]) {
-    renderReportArchive(topic);
-    return;
-  }
 
   panel.innerHTML = `
     <div class="section-title">
@@ -718,7 +757,7 @@ function downloadSkill() {
 }
 
 function renderSkillRegistry() {
-  document.querySelector("#skillRegistry").innerHTML = topics
+  document.querySelector("#skillRegistry").innerHTML = orderedTopics()
     .map((topic) => `
       <div class="registry-item">
         <strong>${topic.skill}</strong>
