@@ -176,6 +176,37 @@ const users = [
   ["Strategy Viewer", "Viewer", "Published reports", "Active"],
 ];
 
+let accessUsers = [
+  {
+    name: "Jason",
+    email: "jasonyang1021@gmail.com",
+    role: "Owner",
+    topics: ["*"],
+    status: "Active",
+  },
+  {
+    name: "Glass Expert",
+    email: "glass.expert@gmail.com",
+    role: "Expert",
+    topics: ["glass-core"],
+    status: "Invited",
+  },
+  {
+    name: "Memory Expert",
+    email: "memory.expert@gmail.com",
+    role: "Expert",
+    topics: ["hbm"],
+    status: "Invited",
+  },
+  {
+    name: "Strategy Viewer",
+    email: "viewer@gmail.com",
+    role: "Viewer",
+    topics: [],
+    status: "Active",
+  },
+];
+
 const glassArchive = {
   kicker: "GLASS-CORE-INSIGHT v1.0 · AI COMPUTING HARDWARE INSIGHT",
   title: "Glass Core（玻璃基板）产业洞察",
@@ -304,6 +335,7 @@ let skillPanelOpen = false;
 let industryExpanded = true;
 let activeJobTimer = null;
 let activeJob = null;
+let currentUserEmail = localStorage.getItem("insightUserEmail") || "";
 const reportTopics = {
   "glass-core": {
     path: "reports/glass-core-report.html",
@@ -347,6 +379,60 @@ function orderedTopics() {
   return [...topics].sort((a, b) => topicOrder.indexOf(a.id) - topicOrder.indexOf(b.id));
 }
 
+function normalizedEmail(email) {
+  return String(email || "").trim().toLowerCase();
+}
+
+function currentUser() {
+  const email = normalizedEmail(currentUserEmail);
+  return accessUsers.find((user) => normalizedEmail(user.email) === email) || {
+    name: "Anonymous",
+    email,
+    role: "Viewer",
+    topics: [],
+    status: email ? "Denied" : "Missing",
+  };
+}
+
+function canEditTopic(topicId = activeTopicId) {
+  const user = currentUser();
+  if (user.status !== "Active") return false;
+  if (user.role === "Owner") return true;
+  if (user.role !== "Expert") return false;
+  return user.topics.includes("*") || user.topics.includes(topicId);
+}
+
+function authPayload() {
+  return {
+    userEmail: normalizedEmail(currentUserEmail),
+  };
+}
+
+function permissionText(user = currentUser()) {
+  if (!user.email) return "请输入已授权邮箱。";
+  if (user.status !== "Active") return "该邮箱尚未启用或未在权限表中。";
+  if (user.role === "Owner") return "管理员：可更新所有主题、保存 Skill 并归档。";
+  if (user.role === "Expert") return `专家：可编辑 ${user.topics.includes("*") ? "全部主题" : user.topics.join(", ")}。`;
+  return "用户：仅可阅读已发布报告。";
+}
+
+async function loadAuthConfig() {
+  try {
+    const response = await fetch("/api/auth-config/", { cache: "no-store" });
+    if (!response.ok) throw new Error("Cannot load auth config");
+    const config = await response.json();
+    if (Array.isArray(config.users) && config.users.length) {
+      accessUsers = config.users;
+    }
+  } catch (error) {
+    console.warn(error);
+  } finally {
+    renderPermissions();
+    renderAuthState();
+    renderIndustry();
+  }
+}
+
 function renderTopics() {
   topicList.hidden = !industryExpanded;
   topicList.innerHTML = orderedTopics()
@@ -377,6 +463,7 @@ function renderIndustry() {
   document.querySelector("#skillName").textContent = topic.skill;
   renderSkillEditor(topic);
   updateTaskEntry();
+  renderAuthState();
 
   renderDeepDive(topic);
 }
@@ -466,6 +553,12 @@ function renderJobSteps(activeIndex, doneAll = false) {
 
 async function startInsightJob() {
   const topic = activeTopic();
+  if (!canEditTopic(topic.id)) {
+    openInsightJobModal();
+    document.querySelector("#jobCommitTitle").textContent = "权限不足";
+    document.querySelector("#jobCommitDetail").textContent = permissionText();
+    return;
+  }
   const brief = document.querySelector("#jobBrief").value.trim() || "按当前 Skill 全量刷新洞察报告。";
   const title = document.querySelector("#jobCommitTitle");
   const detail = document.querySelector("#jobCommitDetail");
@@ -494,13 +587,14 @@ async function startInsightJob() {
   }, 1200);
 
   try {
-    const apiResponse = await fetch("/api/insight-jobs", {
+    const apiResponse = await fetch("/api/insight-jobs/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         topicId: topic.id,
         skillName: topic.skill,
         brief,
+        ...authPayload(),
       }),
     });
     const result = await apiResponse.json().catch(() => ({}));
@@ -601,20 +695,30 @@ function renderSkillPreview(content) {
 async function saveFullSkill() {
   const topic = activeTopic();
   const content = document.querySelector("#fullSkillPrompt").value;
+  const button = document.querySelector("#saveSkillToGithub");
+  const status = document.querySelector("#skillSaveStatus");
+
+  if (!canEditTopic(topic.id)) {
+    status.textContent = `保存失败：${permissionText()}`;
+    return;
+  }
+
   skillDrafts[topic.id] = content;
   document.querySelector("#skillPrompt").value = content;
   document.querySelector("#skillOwner").textContent = "Draft saved locally";
-  const status = document.querySelector("#skillSaveStatus");
   status.textContent = "正在保存到 GitHub...";
+  button.disabled = true;
+  button.textContent = "保存中...";
 
   try {
-    const apiResponse = await fetch("/api/save-skill", {
+    const apiResponse = await fetch("/api/save-skill/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         topicId: topic.id,
         skillName: topic.skill,
         content,
+        ...authPayload(),
       }),
     });
     const result = await apiResponse.json().catch(() => ({}));
@@ -622,6 +726,9 @@ async function saveFullSkill() {
     status.textContent = result.commit?.url ? `已保存：${result.commit.url}` : `已保存到 skills/${topic.skill}.md`;
   } catch (error) {
     status.textContent = `保存失败：${error.message}`;
+  } finally {
+    button.disabled = false;
+    button.textContent = "保存并归档";
   }
 }
 
@@ -769,15 +876,35 @@ function renderSkillRegistry() {
 
 function renderPermissions() {
   document.querySelector("#permissionRows").innerHTML = users
-    .map(([name, role, scope, status]) => `
+    .map(([name, role, scope, status]) => ({ name, email: "", role, topics: [scope], status }))
+    .concat(accessUsers)
+    .filter((user, index, list) => list.findIndex((candidate) => candidate.name === user.name && candidate.role === user.role) === index)
+    .map((user) => `
       <tr>
-        <td>${name}</td>
-        <td>${role}</td>
-        <td>${scope}</td>
-        <td>${status}</td>
+        <td>${user.name}</td>
+        <td>${user.email || "-"}</td>
+        <td>${user.role}</td>
+        <td>${(user.topics || []).includes("*") ? "All topics" : (user.topics || []).join(", ") || "Read only"}</td>
+        <td>${user.status}</td>
       </tr>
     `)
     .join("");
+}
+
+function renderAuthState() {
+  const emailInput = document.querySelector("#userEmail");
+  const roleLabel = document.querySelector("#currentRole");
+  const permissionLabel = document.querySelector("#currentPermission");
+  const updateButton = document.querySelector("#updateInsight");
+  const saveButton = document.querySelector("#saveSkillToGithub");
+  const user = currentUser();
+  const canEdit = canEditTopic(activeTopicId);
+
+  if (emailInput) emailInput.value = currentUserEmail;
+  if (roleLabel) roleLabel.textContent = user.role || "Viewer";
+  if (permissionLabel) permissionLabel.textContent = permissionText(user);
+  if (updateButton) updateButton.disabled = !canEdit;
+  if (saveButton) saveButton.disabled = !canEdit;
 }
 
 function showView(view) {
@@ -841,6 +968,24 @@ document.querySelector("#startInsightJob").addEventListener("click", startInsigh
 
 document.querySelector("#archiveCurrentReport").addEventListener("click", archiveCurrentReport);
 
+document.querySelector("#saveIdentity").addEventListener("click", () => {
+  currentUserEmail = normalizedEmail(document.querySelector("#userEmail").value);
+  if (currentUserEmail) {
+    localStorage.setItem("insightUserEmail", currentUserEmail);
+  } else {
+    localStorage.removeItem("insightUserEmail");
+  }
+  renderAuthState();
+  renderIndustry();
+});
+
+document.querySelector("#clearIdentity").addEventListener("click", () => {
+  currentUserEmail = "";
+  localStorage.removeItem("insightUserEmail");
+  renderAuthState();
+  renderIndustry();
+});
+
 document.querySelectorAll("[data-close-modal]").forEach((button) => {
   button.addEventListener("click", () => closeModal(button.dataset.closeModal));
 });
@@ -861,3 +1006,4 @@ renderIndustry();
 renderSkillRegistry();
 renderPermissions();
 showView(activeView);
+loadAuthConfig();

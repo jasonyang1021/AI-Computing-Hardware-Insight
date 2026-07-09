@@ -1,4 +1,5 @@
 const { commitFiles } = require("./_lib/github");
+const { requireTopicEditor } = require("./_lib/auth");
 
 module.exports = async function handler(request, response) {
   if (request.method !== "POST") {
@@ -13,6 +14,7 @@ module.exports = async function handler(request, response) {
       return;
     }
 
+    const actor = await requireTopicEditor(request, topicId);
     const normalizedSkillName = skillName.replace(/[^a-zA-Z0-9._-]/g, "-");
     const now = new Date();
     const commit = await commitFiles(
@@ -32,6 +34,8 @@ module.exports = async function handler(request, response) {
               topicId,
               skillName: normalizedSkillName,
               updatedAt: now.toISOString(),
+              updatedBy: actor.email,
+              role: actor.role,
             },
             null,
             2,
@@ -47,6 +51,6 @@ module.exports = async function handler(request, response) {
       commit,
     });
   } catch (error) {
-    response.status(500).json({ error: error.message });
+    response.status(error.statusCode || 500).json({ error: error.message });
   }
 };

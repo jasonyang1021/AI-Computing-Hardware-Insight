@@ -146,20 +146,41 @@
       </section>
 
       <section class="view-section" data-view-section="permissions">
-        <div class="panel">
-          <p class="eyebrow">Access Control</p>
-          <h3>权限管理</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>用户</th>
-                <th>角色</th>
-                <th>可编辑主题</th>
-                <th>状态</th>
-              </tr>
-            </thead>
-            <tbody id="permissionRows"></tbody>
-          </table>
+        <div class="access-layout">
+          <div class="panel">
+            <p class="eyebrow">Current Identity</p>
+            <h3>邮箱认证</h3>
+            <div class="identity-form">
+              <label>
+                <span>Gmail / Email</span>
+                <input id="userEmail" type="email" placeholder="name@gmail.com" autocomplete="email" />
+              </label>
+              <div class="identity-actions">
+                <button class="primary-button" type="button" id="saveIdentity">保存身份</button>
+                <button class="ghost-button" type="button" id="clearIdentity">退出</button>
+              </div>
+              <div class="identity-status">
+                <strong id="currentRole">Viewer</strong>
+                <span id="currentPermission">请输入已授权邮箱。</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <p class="eyebrow">Access Control</p>
+            <h3>权限管理</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>用户</th>
+                  <th>邮箱</th>
+                  <th>角色</th>
+                  <th>可编辑主题</th>
+                  <th>状态</th>
+                </tr>
+              </thead>
+              <tbody id="permissionRows"></tbody>
+            </table>
+          </div>
         </div>
       </section>
     </main>

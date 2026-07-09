@@ -1,5 +1,6 @@
 const { commitFiles, readFile } = require("./_lib/github");
 const { generateInsightReport } = require("./_lib/openai");
+const { requireTopicEditor } = require("./_lib/auth");
 
 const topics = {
   "glass-core": {
@@ -43,6 +44,7 @@ module.exports = async function handler(request, response) {
       return;
     }
 
+    const actor = await requireTopicEditor(request, topicId);
     const now = new Date();
     const archiveName = now.toISOString().replace(/[:.]/g, "-");
     const [skill, currentReport] = await Promise.all([
@@ -68,6 +70,8 @@ module.exports = async function handler(request, response) {
       skillPath: topic.skillPath,
       reportPath: topic.reportPath,
       archivePath: `archive/${topicId}/${archiveName}.html`,
+      updatedBy: actor.email,
+      role: actor.role,
     };
 
     const commit = await commitFiles(
@@ -96,6 +100,6 @@ module.exports = async function handler(request, response) {
       commit,
     });
   } catch (error) {
-    response.status(500).json({ error: error.message });
+    response.status(error.statusCode || 500).json({ error: error.message });
   }
 };
