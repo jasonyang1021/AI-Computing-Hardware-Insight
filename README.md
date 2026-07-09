@@ -110,9 +110,26 @@ GITHUB_TOKEN=github_pat_...
 GITHUB_REPO=jasonyang1021/AI-Computing-Hardware-Insight
 GITHUB_BRANCH=main
 OPENAI_MAX_OUTPUT_TOKENS=20000
+OWNER_EMAILS=jasonyang1021@gmail.com
+EXPERT_EMAILS=glass.expert@gmail.com,memory.expert@gmail.com
+VIEWER_EMAILS=viewer@gmail.com
+# Optional, for Google ID token verification when Google Sign-In is enabled:
+GOOGLE_CLIENT_ID=...
 ```
 
 `GITHUB_TOKEN` needs Contents read/write access to this repository. Keep all secrets in Vercel environment variables, never in frontend files.
+
+`OWNER_EMAILS`, `EXPERT_EMAILS`, and `VIEWER_EMAILS` control who can save Skills or run report update jobs. Owners can edit every topic. Experts can edit assigned topics when using `ACCESS_USERS_JSON`, or every topic when listed in `EXPERT_EMAILS`. Viewers are read-only.
+
+For finer access control, configure `ACCESS_USERS_JSON` instead of the CSV lists:
+
+```json
+[
+  { "name": "Jason", "email": "name@gmail.com", "role": "Owner", "topics": ["*"], "status": "Active" },
+  { "name": "Glass Expert", "email": "glass@gmail.com", "role": "Expert", "topics": ["glass-core"], "status": "Active" },
+  { "name": "Viewer", "email": "viewer@gmail.com", "role": "Viewer", "topics": [], "status": "Active" }
+]
+```
 
 ### Netlify
 
