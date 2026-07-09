@@ -24,7 +24,7 @@ templates/  Future report and skill templates
 
 ## Run The MVP
 
-Open this file in a browser:
+Open this file in a browser for a quick static preview:
 
 ```text
 app/index.html
@@ -32,17 +32,47 @@ app/index.html
 
 No install step is required.
 
-For local HTTP preview:
+For local HTTP preview, run a static server from the repository root.
+
+With Node.js:
 
 ```text
-cd app
+npx serve . -l 8080
+```
+
+Then open:
+
+```text
+http://localhost:8080/app/
+```
+
+With Python:
+
+```text
 python3 -m http.server 8080
 ```
 
 Then open:
 
 ```text
-http://localhost:8080
+http://localhost:8080/app/
+```
+
+On Windows, `python3` may be unavailable. Use `py -m http.server 8080`, `python -m http.server 8080`, or the Node.js option above.
+
+### Windows Setup Notes
+
+After installing Git for Windows, restart PowerShell, VS Code, or Codex so the updated `PATH` is loaded. If `git` is still not recognized, Git is usually available at:
+
+```text
+C:\Program Files\Git\cmd\git.exe
+```
+
+Clone the repository:
+
+```text
+git clone https://github.com/jasonyang1021/AI-Computing-Hardware-Insight.git
+cd AI-Computing-Hardware-Insight
 ```
 
 ## Deploy The MVP
@@ -57,6 +87,12 @@ The MVP is a static site plus optional serverless API routes for AI updates and 
 4. Build command: leave empty.
 5. Output directory: leave empty if deploying the repo root, or set root directory to `app`.
 6. The root `index.html` redirects to `/app/`.
+
+After deployment, check:
+
+- `Deployments`: latest production deployment should be `Ready`.
+- `Domains`: use the production domain for users, not only a protected preview deployment URL.
+- `Settings -> Deployment Protection`: if enabled, unauthenticated users will see a Vercel login/protection page instead of the app.
 
 ### AI + GitHub Archival
 
